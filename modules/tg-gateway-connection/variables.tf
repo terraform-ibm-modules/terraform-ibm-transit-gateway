@@ -31,7 +31,7 @@ variable "vpc_connections" {
   description = "The list of vpc instance resource_crn to add network connections for."
 }
 
-variable "classic_connnections_count" {
+variable "classic_connections_count" {
   type        = number
   description = "Number of classic connections to add."
 }
