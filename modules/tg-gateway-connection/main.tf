@@ -21,7 +21,7 @@ resource "ibm_tg_connection" "vpc_connections" {
 }
 
 resource "ibm_tg_connection" "classic_connections" {
-  count = var.classic_connnections_count
+  count = var.classic_connections_count
 
   gateway      = ibm_tg_gateway.tg_gw_instance.id
   network_type = "classic"

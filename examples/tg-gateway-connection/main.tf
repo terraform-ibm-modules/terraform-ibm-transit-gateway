@@ -7,13 +7,15 @@ data "ibm_resource_group" "resource_group" {
 }
 
 module "tg-gateway-connection" {
-  source = "terraform-ibm-modules/transit-gateway/ibm//modules/tg-gateway-connection"
+  // Uncommnet the following line to point the source to registry level
+  //source = "terraform-ibm-modules/transit-gateway/ibm//modules/tg-gateway-connection"
 
-  transit_gateway_name       = var.transit_gateway_name
-  location                   = var.location
-  global_routing             = var.global_routing
-  tags                       = var.tags
-  resource_group_id          = data.ibm_resource_group.resource_group.id
-  vpc_connections            = var.vpc_connections
-  classic_connnections_count = var.classic_connnections_count
+  source                    = "../../modules/tg-gateway-connection"
+  transit_gateway_name      = var.transit_gateway_name
+  location                  = var.location
+  global_routing            = var.global_routing
+  tags                      = var.tags
+  resource_group_id         = data.ibm_resource_group.resource_group.id
+  vpc_connections           = var.vpc_connections
+  classic_connections_count = var.classic_connections_count
 }
