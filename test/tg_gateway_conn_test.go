@@ -21,7 +21,7 @@ func TestAccIBMCloudTgConnection(t *testing.T) {
 			"global_routing":            true,
 			"vpc_connections":           []string{"crn:v1:bluemix:public:is:us-south:a/fcdb764102154c7ea8e1b79d3a64afe0::vpc:r006-2f795247-a00b-4f11-94da-b7098918c28c"},
 			"tags":                      []string{"T1", "T2"},
-			"classic_connections_count": 2,
+			"classic_connections_count": 0,
 			"resource_group_name":       "default",
 		},
 	})
