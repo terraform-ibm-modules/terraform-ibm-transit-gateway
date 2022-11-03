@@ -35,4 +35,3 @@ variable "classic_connections_count" {
   type        = number
   description = "Number of classic connections to add."
 }
-
