@@ -34,4 +34,3 @@ variable "tags" {
   description = "List of tags"
   default     = null
 }
-

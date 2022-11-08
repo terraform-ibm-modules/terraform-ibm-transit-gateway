@@ -10,11 +10,12 @@ output "tg_crn" {
 
 output "vpc_conn_ids" {
   description = "List of vpc connection IDs"
-  value       = ibm_tg_connection.vpc_connections.*.connection_id
+  #value       = ibm_tg_connection.vpc_connections[*].connection_id
+  value = ibm_tg_connection.vpc_connections[*].connection_id
 }
 
 output "classic_conn_ids" {
   description = "List of classic connection IDs"
-  value       = ibm_tg_connection.classic_connections.*.connection_id
+  #value       = ibm_tg_connection.classic_connections[*].connection_id
+  value = ibm_tg_connection.classic_connections[*].connection_id
 }
-

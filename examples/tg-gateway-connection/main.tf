@@ -6,9 +6,9 @@ data "ibm_resource_group" "resource_group" {
   name = var.resource_group_name
 }
 
-module "tg-gateway-connection" {
-  // Uncommnet the following line to point the source to registry level
-  //source = "terraform-ibm-modules/transit-gateway/ibm//modules/tg-gateway-connection"
+module "tg_gateway_connection" {
+  # Uncommnet the following line to point the source to registry level
+  # source = "terraform-ibm-modules/transit-gateway/ibm//modules/tg-gateway-connection"
 
   source                    = "../../modules/tg-gateway-connection"
   transit_gateway_name      = var.transit_gateway_name

@@ -1,24 +1,24 @@
 # IBM Cloud Transit Gateway - Terraform Module
 
-This is a collection of modules that make it easier to provision transit gateway and configure multiple connections to it on IBM Cloud Platform:
+With IBM Cloud® Transit Gateway (TGW), you can create a single or multiple transit gateways to connect VPCs together. You can also connect your IBM Cloud classic infrastructure to a Transit Gateway to provide seamless communication with Classic Infrastructure resources. Any new network that you connect to a Transit Gateway is then automatically made available to every other network connected to it. For more info [refer](https://cloud.ibm.com/docs/vmwaresolutions?topic=vmwaresolutions-interconnectivity-tgw-overview)
+
+Following diagram illustrates the baisc transit gateway with VMware.
+
+![IBM Cloud Transit Gateway with VMware on VPC](diagrams/transit_gateway.png)
+
+Below are the collection of modules that make it easier to provision transit gateway and configure multiple connections to it on IBM Cloud Platform:
+
 * [tg-gateway-connection](modules/tg-gateway-connection)
 
-## Compatibility
-
-This module is meant for use with Terraform 0.13 (and higher).
 
 ## Usage
-
-Full examples are in the [examples](./examples/) folder, demonstarte how to use a module through a template:
-
-e.g:
 
 ```hcl
 data "ibm_resource_group" "resource_group" {
   name = var.resource_group_name
 }
 
-module "tg-gateway-connection" {
+module "tg_gateway_connection" {
   source = "terraform-ibm-modules/transit-gateway/ibm//modules/tg-gateway-connection"
 
   transit_gateway_name = var.transit_gateway_name
@@ -31,67 +31,38 @@ module "tg-gateway-connection" {
 }
 ```
 
+<!-- BEGIN EXAMPLES HOOK -->
+## Examples
+
+- [ Transit Gateway Module Example](examples/tg-gateway-connection)
+<!-- END EXAMPLES HOOK -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-### Terraform plugins
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 
-- [Terraform](https://www.terraform.io/downloads.html) 0.13 (or later)
-- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm)
+## Modules
 
-## Install
+No modules.
 
-### Terraform
+## Resources
 
-Be sure you have the correct Terraform version (0.13), you can choose the binary here:
-- https://releases.hashicorp.com/terraform/
+No resources.
 
-### Terraform plugins
+## Inputs
 
-Be sure you have the compiled plugins on $HOME/.terraform.d/plugins/
+No inputs.
 
-- [terraform-provider-ibm](https://github.com/IBM-Cloud/terraform-provider-ibm)
+## Outputs
 
-### Pre-commit hooks
+No outputs.
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-Run the following command to execute the pre-commit hooks defined in .pre-commit-config.yaml file
-```
-pre-commit run -a
-```
-You can install pre-coomit tool using
+## Contributing
 
-```
-pip install pre-commit
-```
-or
-```
-pip3 install pre-commit
-```
-## How to input variable values through a file
+You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
-To review the plan for the configuration defined (no resources actually provisioned)
-```
-terraform plan -var-file=./input.tfvars
-```
-To execute and start building the configuration defined in the plan (provisions resources)
-```
-terraform apply -var-file=./input.tfvars
-```
-
-To destroy the VPC and all related resources
-```
-terraform destroy -var-file=./input.tfvars
-```
-
-To run the test case execute
-```
-go test -v -timeout 15m -run <TestCaseName>
-```
-
-## Note
-
-All optional parameters, by default, will be set to `null` in respective example's variable.tf file. You can also override these optional parameters.
-
-To create a transit gateway connection of network type `classic`, in the respective account virtual routing and forwarding (VRF) has to be enabled. please refer following doc to enable the VRF
-
-https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint#vrf
-
+To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.

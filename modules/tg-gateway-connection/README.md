@@ -23,50 +23,56 @@ module "tg-gateway-connection" {
 }
 ```
 
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [ibm_tg_gateway.tg_gw_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
+| [ibm_tg_connection.vpc_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
+| [ibm_tg_connection.classic_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.41.1 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [ibm_tg_connection.classic_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.41.1/docs/resources/tg_connection) | resource |
+| [ibm_tg_connection.vpc_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.41.1/docs/resources/tg_connection) | resource |
+| [ibm_tg_gateway.tg_gw_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.41.1/docs/resources/tg_gateway) | resource |
 
 ## Inputs
 
-| Name                              | Description                                                     | Type         | Default | Required |
-|-----------------------------------|-----------------------------------------------------------------|--------------|---------|----------|
-| transit_gateway_name              | Name of the transit gateway.                                    | string       | n/a     | yes      |
-| location                          | Location of the transit gateway.                                | string       | n/a     | yes      |
-| resource_group_name               | Name of the resource group.                                     | string       | n/a     | yes      |
-| global_routing                    | On true, connect to the networks outside their associated region| bool         | false   | no       |
-| vpc_connections                   | List of vpc crn to connect                                      | list(string) | n/a     | yes      |
-| classic_connections_count         | Number of classic connections.                                   | number       | n/a     | yes      |
-| tags                              | List of tags                                                    | list(string) | n/a     | no       |
-
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## How to input variable values through a file
-
-To review the plan for the configuration defined (no resources actually provisioned)
-
-`terraform plan -var-file=./input.tfvars`
-
-To execute and start building the configuration defined in the plan (provisions resources)
-
-`terraform apply -var-file=./input.tfvars`
-
-To destroy the VPC and all related resources
-
-`terraform destroy -var-file=./input.tfvars`
-
-All optional parameters by default will be set to null in respective example's variable.tf file. If user wants to configure any optional paramter he has overwrite the default value.
-
-## Note
-
-For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_classic_connections_count"></a> [classic\_connections\_count](#input\_classic\_connections\_count) | Number of classic connections to add. | `number` | n/a | yes |
+| <a name="input_global_routing"></a> [global\_routing](#input\_global\_routing) | Gateways with global routing (true) to connect to the networks outside their associated region | `bool` | `false` | no |
+| <a name="input_location"></a> [location](#input\_location) | Location of the transit gateway. | `string` | n/a | yes |
+| <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | Resource group ID where the transit gateway to be created. | `string` | `null` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | List of tags | `list(string)` | `null` | no |
+| <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | Name of the transit gateway | `string` | n/a | yes |
+| <a name="input_vpc_connections"></a> [vpc\_connections](#input\_vpc\_connections) | The list of vpc instance resource\_crn to add network connections for. | `list(string)` | n/a | yes |
 
 ## Outputs
 
-| Name             | Description                    |
-|------------------|--------------------------------|
-| tg_id            | ID of the transit gateway      |
-| tg_crn           | CRN of the gateway             |
-| vpc_conn_ids     | List of vpc connection IDs     |
-| classic_conn_ids | List of classic connection IDs |
-
+| Name | Description |
+|------|-------------|
+| <a name="output_classic_conn_ids"></a> [classic\_conn\_ids](#output\_classic\_conn\_ids) | List of classic connection IDs |
+| <a name="output_tg_crn"></a> [tg\_crn](#output\_tg\_crn) | CRN of the gateway |
+| <a name="output_tg_id"></a> [tg\_id](#output\_tg\_id) | The ID of the transit gateway |
+| <a name="output_vpc_conn_ids"></a> [vpc\_conn\_ids](#output\_vpc\_conn\_ids) | List of vpc connection IDs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
