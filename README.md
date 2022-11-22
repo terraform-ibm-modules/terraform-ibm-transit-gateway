@@ -2,32 +2,27 @@
 
 With IBM Cloud® Transit Gateway (TGW), you can create a single or multiple transit gateways to connect VPCs together. You can also connect your IBM Cloud classic infrastructure to a Transit Gateway to provide seamless communication with Classic Infrastructure resources. Any new network that you connect to a Transit Gateway is then automatically made available to every other network connected to it. For more info [refer](https://cloud.ibm.com/docs/vmwaresolutions?topic=vmwaresolutions-interconnectivity-tgw-overview)
 
-Following diagram illustrates the baisc transit gateway with VMware.
+Following diagram illustrates a basic transit gateway with VMware.
 
 ![IBM Cloud Transit Gateway with VMware on VPC](diagrams/transit_gateway.png)
-
-Below are the collection of modules that make it easier to provision transit gateway and configure multiple connections to it on IBM Cloud Platform:
-
-* [tg-gateway-connection](modules/tg-gateway-connection)
-
 
 ## Usage
 
 ```hcl
 data "ibm_resource_group" "resource_group" {
-  name = var.resource_group_name
+  name = "resource_group_name"
 }
 
 module "tg_gateway_connection" {
-  source = "terraform-ibm-modules/transit-gateway/ibm//modules/tg-gateway-connection"
-
-  transit_gateway_name = var.transit_gateway_name
-  location             = var.location
-  global_routing       = var.global_routing
-  tags                 = var.tags
+  # Replace "main" with a GIT release version to lock into a specific release
+  source = "git::https://github.com/terraform-ibm-modules/transit-gateway.git?ref=main"
+  transit_gateway_name = "transit gateway name"
+  location             = "eu-de"
+  global_routing       = true
+  tags                 = ["tag1", "tag2"]
   resource_group_id    = data.ibm_resource_group.resource_group.id
-  vpc_connections      = var.vpc_connections
-  classic_connections_count   = var.classic_connections_count
+  vpc_connections      = ["crn:v1:bluemix:public:is:eu-de:a/7aa6f7b185f2e3170fac9919aa1769ee::vpc:r010-a9fdc623-d702-4381-a116-07546dba1b87","crn:v1:bluemix:public:is:eu-de:a/7aa6f7b185f2e3170fac9919aa1769ee::vpc:r010-4c39039d-e7ef-411d-a191-3cb549dc41a1"]
+  classic_connections_count   = false
 }
 ```
 
@@ -35,6 +30,7 @@ module "tg_gateway_connection" {
 ## Examples
 
 - [ Transit Gateway Module Example](examples/tg-gateway-connection)
+- [ Transit Gateway connecting two VPCs](examples/two-vpcs)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
