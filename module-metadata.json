@@ -170,7 +170,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 23
+        "line": 18
       }
     },
     "ibm_tg_connection.vpc_connections": {
@@ -186,7 +186,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 14
+        "line": 9
       }
     },
     "ibm_tg_gateway.tg_gw_instance": {
@@ -205,7 +205,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 6
+        "line": 1
       }
     }
   },
