@@ -1,12 +1,214 @@
 {
   "path": ".",
-  "variables": {},
-  "outputs": {},
+  "variables": {
+    "classic_connections_count": {
+      "name": "classic_connections_count",
+      "type": "number",
+      "description": "Number of classic connections to add.",
+      "required": true,
+      "source": [
+        "ibm_tg_connection.classic_connections.count"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 34
+      }
+    },
+    "global_routing": {
+      "name": "global_routing",
+      "type": "bool",
+      "description": "Gateways with global routing (true) to connect to the networks outside their associated region",
+      "default": false,
+      "source": [
+        "ibm_tg_gateway.tg_gw_instance.global"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 11
+      }
+    },
+    "location": {
+      "name": "location",
+      "type": "string",
+      "description": "Location of the transit gateway.",
+      "required": true,
+      "source": [
+        "ibm_tg_gateway.tg_gw_instance.location"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 6
+      },
+      "cloud_data_type": "region",
+      "immutable": true
+    },
+    "resource_group_id": {
+      "name": "resource_group_id",
+      "type": "string",
+      "description": "Resource group ID where the transit gateway to be created.",
+      "source": [
+        "ibm_tg_gateway.tg_gw_instance.resource_group"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 17
+      },
+      "cloud_data_type": "resource_group",
+      "computed": true
+    },
+    "tags": {
+      "name": "tags",
+      "type": "list(string)",
+      "description": "List of tags",
+      "source": [
+        "ibm_tg_gateway.tg_gw_instance.tags"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 23
+      },
+      "min_length": 1,
+      "max_length": 128,
+      "matches": "^[A-Za-z0-9:_ .-]+$",
+      "computed": true,
+      "elem": {
+        "type": "TypeString"
+      }
+    },
+    "transit_gateway_name": {
+      "name": "transit_gateway_name",
+      "type": "string",
+      "description": "Name of the transit gateway",
+      "required": true,
+      "source": [
+        "ibm_tg_gateway.tg_gw_instance.name"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 1
+      },
+      "options": "^([a-zA-Z]|[a-zA-Z][-_a-zA-Z0-9]*[a-zA-Z0-9])$}",
+      "min_length": 1,
+      "max_length": 63
+    },
+    "vpc_connections": {
+      "name": "vpc_connections",
+      "type": "list(string)",
+      "description": "The list of vpc instance resource_crn to add network connections for.",
+      "required": true,
+      "source": [
+        "ibm_tg_connection.vpc_connections.count",
+        "ibm_tg_connection.vpc_connections.network_id"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 29
+      },
+      "immutable": true,
+      "computed": true
+    }
+  },
+  "outputs": {
+    "classic_conn_ids": {
+      "name": "classic_conn_ids",
+      "description": "List of classic connection IDs",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 17
+      }
+    },
+    "tg_crn": {
+      "name": "tg_crn",
+      "description": "CRN of the gateway",
+      "value": "ibm_tg_gateway.tg_gw_instance.crn",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 6
+      },
+      "type": "TypeString",
+      "cloud_data_type": "crn"
+    },
+    "tg_id": {
+      "name": "tg_id",
+      "description": "The ID of the transit gateway",
+      "value": "ibm_tg_gateway.tg_gw_instance.id",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 1
+      }
+    },
+    "vpc_conn_ids": {
+      "name": "vpc_conn_ids",
+      "description": "List of vpc connection IDs",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 11
+      }
+    }
+  },
   "required_core": [
     "\u003e= 1.0.0"
   ],
-  "required_providers": {},
-  "managed_resources": {},
+  "required_providers": {
+    "ibm": {
+      "source": "IBM-Cloud/ibm",
+      "version_constraints": [
+        "\u003e= 1.41.1"
+      ]
+    }
+  },
+  "managed_resources": {
+    "ibm_tg_connection.classic_connections": {
+      "mode": "managed",
+      "type": "ibm_tg_connection",
+      "name": "classic_connections",
+      "attributes": {
+        "count": "classic_connections_count"
+      },
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 23
+      }
+    },
+    "ibm_tg_connection.vpc_connections": {
+      "mode": "managed",
+      "type": "ibm_tg_connection",
+      "name": "vpc_connections",
+      "attributes": {
+        "count": "vpc_connections",
+        "network_id": "vpc_connections"
+      },
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 14
+      }
+    },
+    "ibm_tg_gateway.tg_gw_instance": {
+      "mode": "managed",
+      "type": "ibm_tg_gateway",
+      "name": "tg_gw_instance",
+      "attributes": {
+        "global": "global_routing",
+        "location": "location",
+        "name": "transit_gateway_name",
+        "resource_group": "resource_group_id",
+        "tags": "tags"
+      },
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 6
+      }
+    }
+  },
   "data_resources": {},
   "module_calls": {}
 }

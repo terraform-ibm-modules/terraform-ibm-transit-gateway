@@ -34,7 +34,7 @@ This example illustrates how to provision a transit gateway and configure multip
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tg_gateway_connection"></a> [tg\_gateway\_connection](#module\_tg\_gateway\_connection) | ../../modules/tg-gateway-connection | n/a |
+| <a name="module_tg_gateway_connection"></a> [tg\_gateway\_connection](#module\_tg\_gateway\_connection) | ../.. | n/a |
 
 ## Resources
 
@@ -71,7 +71,7 @@ No outputs.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tg_gateway_connection"></a> [tg\_gateway\_connection](#module\_tg\_gateway\_connection) | ../../modules/tg-gateway-connection | n/a |
+| <a name="module_tg_gateway_connection"></a> [tg\_gateway\_connection](#module\_tg\_gateway\_connection) | ../.. | n/a |
 
 ## Resources
 
