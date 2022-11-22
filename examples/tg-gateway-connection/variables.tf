@@ -3,14 +3,21 @@ variable "transit_gateway_name" {
   type        = string
 }
 
-variable "location" {
-  description = "Location of the transit gateway."
+variable "region" {
+  description = "The IBM Cloud region where all resources will be provisioned."
   type        = string
 }
 
-variable "resource_group_name" {
-  description = "Name of the resource group."
+variable "resource_group" {
   type        = string
+  description = "An existing resource group name to use for this example, if unset a new resource group will be created"
+  default     = null
+}
+
+variable "prefix" {
+  description = "The prefix that you would like to append to your resources"
+  type        = string
+  default     = "tg"
 }
 
 variable "global_routing" {

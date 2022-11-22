@@ -27,10 +27,10 @@
         "line": 11
       }
     },
-    "location": {
-      "name": "location",
+    "region": {
+      "name": "region",
       "type": "string",
-      "description": "Location of the transit gateway.",
+      "description": "The IBM Cloud region where all resources will be provisioned.",
       "required": true,
       "source": [
         "ibm_tg_gateway.tg_gw_instance.location"
@@ -195,7 +195,7 @@
       "name": "tg_gw_instance",
       "attributes": {
         "global": "global_routing",
-        "location": "location",
+        "location": "region",
         "name": "transit_gateway_name",
         "resource_group": "resource_group_id",
         "tags": "tags"
