@@ -1,10 +1,6 @@
 # IBM Cloud Transit Gateway - Terraform Module
 
-With IBM Cloud® Transit Gateway (TGW), you can create a single or multiple transit gateways to connect VPCs together. You can also connect your IBM Cloud classic infrastructure to a Transit Gateway to provide seamless communication with Classic Infrastructure resources. Any new network that you connect to a Transit Gateway is then automatically made available to every other network connected to it. For more info [refer](https://cloud.ibm.com/docs/vmwaresolutions?topic=vmwaresolutions-interconnectivity-tgw-overview)
-
-Following diagram illustrates a basic transit gateway with VMware.
-
-![IBM Cloud Transit Gateway with VMware on VPC](diagrams/transit_gateway.png)
+With IBM Cloud® Transit Gateway (TGW), you can create a single or multiple transit gateways to connect VPCs together. You can also connect your IBM Cloud classic infrastructure to a Transit Gateway to provide seamless communication with Classic Infrastructure resources. Any new network that you connect to a Transit Gateway is then automatically made available to every other network connected to it. For more information, refer to the [documentation](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-about).
 
 ## Usage
 
