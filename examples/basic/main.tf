@@ -23,7 +23,7 @@ module "tg_gateway_connection" {
   transit_gateway_name      = var.transit_gateway_name
   region                    = var.region
   global_routing            = var.global_routing
-  tags                      = var.tags
+  resource_tags             = var.resource_tags
   resource_group_id         = var.resource_group != null ? data.ibm_resource_group.existing_resource_group[0].id : ibm_resource_group.resource_group[0].id
   vpc_connections           = var.vpc_connections
   classic_connections_count = var.classic_connections_count

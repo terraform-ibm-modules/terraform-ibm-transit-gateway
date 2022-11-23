@@ -29,7 +29,7 @@ module "tg_gateway_connection" {
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Transit Gateway Module Example](examples/tg-gateway-connection)
+- [ Transit Gateway Module Example](examples/basic)
 - [ Transit Gateway connecting two VPCs](examples/two-vpcs)
 <!-- END EXAMPLES HOOK -->
 
@@ -61,7 +61,7 @@ No modules.
 | <a name="input_global_routing"></a> [global\_routing](#input\_global\_routing) | Gateways with global routing (true) to connect to the networks outside their associated region | `bool` | `false` | no |
 | <a name="input_region"></a> [region](#input\_region) | The IBM Cloud region where all resources will be provisioned. | `string` | n/a | yes |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | Resource group ID where the transit gateway to be created. | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | List of tags | `list(string)` | `null` | no |
+| <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | List of tags | `list(string)` | `null` | no |
 | <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | Name of the transit gateway | `string` | n/a | yes |
 | <a name="input_vpc_connections"></a> [vpc\_connections](#input\_vpc\_connections) | The list of vpc instance resource\_crn to add network connections for. | `list(string)` | n/a | yes |
 

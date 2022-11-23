@@ -56,8 +56,8 @@
       "cloud_data_type": "resource_group",
       "computed": true
     },
-    "tags": {
-      "name": "tags",
+    "resource_tags": {
+      "name": "resource_tags",
       "type": "list(string)",
       "description": "List of tags",
       "source": [
@@ -198,7 +198,7 @@
         "location": "region",
         "name": "transit_gateway_name",
         "resource_group": "resource_group_id",
-        "tags": "tags"
+        "tags": "resource_tags"
       },
       "provider": {
         "name": "ibm"

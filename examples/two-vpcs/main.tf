@@ -23,7 +23,7 @@ module "vpc_1" {
   resource_group_id = var.resource_group != null ? data.ibm_resource_group.existing_resource_group[0].id : ibm_resource_group.resource_group[0].id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.tags
+  tags              = var.resource_tags
   name              = var.vpc1_name
   use_public_gateways = {
     zone-1 = false
@@ -37,7 +37,7 @@ module "vpc_2" {
   resource_group_id = var.resource_group != null ? data.ibm_resource_group.existing_resource_group[0].id : ibm_resource_group.resource_group[0].id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.tags
+  tags              = var.resource_tags
   name              = var.vpc2_name
   use_public_gateways = {
     zone-1 = false
@@ -55,7 +55,7 @@ module "tg_gateway_connection" {
   transit_gateway_name      = var.transit_gateway_name
   region                    = var.region
   global_routing            = false
-  tags                      = var.tags
+  resource_tags             = var.resource_tags
   resource_group_id         = var.resource_group != null ? data.ibm_resource_group.existing_resource_group[0].id : ibm_resource_group.resource_group[0].id
   vpc_connections           = [module.vpc_1.vpc_crn, module.vpc_2.vpc_crn]
   classic_connections_count = 0

@@ -20,7 +20,7 @@ variable "resource_group_id" {
   default     = null
 }
 
-variable "tags" {
+variable "resource_tags" {
   type        = list(string)
   description = "List of tags"
   default     = null

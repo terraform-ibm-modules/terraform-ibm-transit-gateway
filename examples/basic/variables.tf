@@ -1,3 +1,9 @@
+variable "ibmcloud_api_key" {
+  description = "APIkey that's associated with the account to provision resources to"
+  type        = string
+  sensitive   = true
+}
+
 variable "transit_gateway_name" {
   description = "Name of the transit gateway"
   type        = string
@@ -36,7 +42,7 @@ variable "classic_connections_count" {
   description = "Number of classic connections to add."
 }
 
-variable "tags" {
+variable "resource_tags" {
   type        = list(string)
   description = "List of tags"
   default     = null

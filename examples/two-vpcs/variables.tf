@@ -13,13 +13,11 @@ variable "prefix" {
 variable "transit_gateway_name" {
   description = "Name of the transit gateway"
   type        = string
-  default     = "transit-gw-2"
 }
 
 variable "region" {
   description = "Location of the transit gateway."
   type        = string
-  default     = "eu-de"
 }
 
 variable "resource_group" {
@@ -28,7 +26,7 @@ variable "resource_group" {
   default     = null
 }
 
-variable "tags" {
+variable "resource_tags" {
   type        = list(string)
   description = "List of tags"
   default     = null
