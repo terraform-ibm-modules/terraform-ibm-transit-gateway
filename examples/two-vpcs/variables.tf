@@ -22,7 +22,7 @@ variable "region" {
 
 variable "resource_group" {
   type        = string
-  description = "An existing resource group name to use for this example, if unset a new resource group will be created"
+  description = "An existing resource group name to use for this example. If not set, a new resource group is created." 
   default     = null
 }
 
