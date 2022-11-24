@@ -1,5 +1,5 @@
 variable "ibmcloud_api_key" {
-  description = "APIkey that's associated with the account to provision resources to"
+  description = "API key that is associated with the account to provision resources to"
   type        = string
   sensitive   = true
 }
