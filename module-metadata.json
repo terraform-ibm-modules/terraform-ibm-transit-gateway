@@ -30,7 +30,7 @@
     "region": {
       "name": "region",
       "type": "string",
-      "description": "The IBM Cloud region where all resources will be provisioned.",
+      "description": "The IBM Cloud region where all resources are provisioned.",
       "required": true,
       "source": [
         "ibm_tg_gateway.tg_gw_instance.location"
