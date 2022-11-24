@@ -15,4 +15,4 @@ repository:
 
   # The description is displayed under the repository name on the
   # organization page and in the 'About' section of the repository.
-  description: "Terraform module to provision Transit Gateway in the IBM Cloud account."
+  description: "Provisions IBM Cloud Transit Gateway in an IBM Cloud account."
