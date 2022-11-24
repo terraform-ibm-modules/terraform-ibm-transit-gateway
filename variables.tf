@@ -4,7 +4,7 @@ variable "transit_gateway_name" {
 }
 
 variable "region" {
-  description = "The IBM Cloud region where all resources will be provisioned."
+  description = "The IBM Cloud region where all resources are provisioned."
   type        = string
 }
 
