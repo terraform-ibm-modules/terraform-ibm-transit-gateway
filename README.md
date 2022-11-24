@@ -8,7 +8,7 @@
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-transit-gateway?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/releases/latest)
 
 
-With IBM Cloud® Transit Gateway (TGW), you can create a single or multiple transit gateways to connect VPCs together. You can also connect your IBM Cloud classic infrastructure to a Transit Gateway to provide seamless communication with Classic Infrastructure resources. Any new network that you connect to a Transit Gateway is then automatically made available to every other network connected to it. For more information, refer to the [documentation](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-about).
+With IBM Cloud® Transit Gateway, you can create single or multiple transit gateways to connect VPCs. You can also connect your IBM Cloud classic infrastructure to a transit gateway to provide seamless communication with classic infrastructure resources. Any new network that you connect to a transit gateway is then made available to every other network connected to it. For more information, see [About IBM Cloud Transit Gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-about) in the IBM Cloud docs.
 
 ## Usage
 
