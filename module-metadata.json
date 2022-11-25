@@ -124,7 +124,9 @@
       "pos": {
         "filename": "outputs.tf",
         "line": 6
-      }
+      },
+      "type": "TypeString",
+      "cloud_data_type": "crn"
     },
     "tg_id": {
       "name": "tg_id",
