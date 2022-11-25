@@ -114,7 +114,7 @@
       "description": "List of classic connection IDs",
       "pos": {
         "filename": "outputs.tf",
-        "line": 17
+        "line": 16
       }
     },
     "tg_crn": {
@@ -124,9 +124,7 @@
       "pos": {
         "filename": "outputs.tf",
         "line": 6
-      },
-      "type": "TypeString",
-      "cloud_data_type": "crn"
+      }
     },
     "tg_id": {
       "name": "tg_id",
@@ -139,7 +137,7 @@
     },
     "vpc_conn_ids": {
       "name": "vpc_conn_ids",
-      "description": "List of vpc connection IDs",
+      "description": "List of VPC connection IDs",
       "pos": {
         "filename": "outputs.tf",
         "line": 11
