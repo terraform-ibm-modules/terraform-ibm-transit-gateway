@@ -3,8 +3,8 @@ variable "transit_gateway_name" {
   type        = string
 }
 
-variable "location" {
-  description = "Location of the transit gateway."
+variable "region" {
+  description = "The IBM Cloud region where all resources are provisioned."
   type        = string
 }
 
@@ -20,7 +20,7 @@ variable "resource_group_id" {
   default     = null
 }
 
-variable "tags" {
+variable "resource_tags" {
   type        = list(string)
   description = "List of tags"
   default     = null
@@ -35,4 +35,3 @@ variable "classic_connections_count" {
   type        = number
   description = "Number of classic connections to add."
 }
-

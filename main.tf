@@ -1,14 +1,9 @@
-#####################################################
-# Transit gateway connection module
-# Copyright 2020 IBM
-#####################################################
-
 resource "ibm_tg_gateway" "tg_gw_instance" {
   name           = var.transit_gateway_name
-  location       = var.location
+  location       = var.region
   global         = var.global_routing != null ? var.global_routing : false
   resource_group = var.resource_group_id != null ? var.resource_group_id : null
-  tags           = var.tags != null ? var.tags : null
+  tags           = var.resource_tags != null ? var.resource_tags : null
 }
 
 resource "ibm_tg_connection" "vpc_connections" {
