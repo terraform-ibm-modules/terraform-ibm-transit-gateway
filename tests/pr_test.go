@@ -83,9 +83,6 @@ func TestRun2VpcsExample(t *testing.T) {
 func TestRunUpgradeExample(t *testing.T) {
 	t.Parallel()
 
-	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
-	t.Skip("Skipping upgrade test until initial code is in primary branch")
-
 	options := setupOptionsBasicExample(t, "ibm-tgn")
 
 	output, err := options.RunTestUpgrade()
