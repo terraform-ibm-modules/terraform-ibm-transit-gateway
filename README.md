@@ -34,6 +34,7 @@ module "tg_gateway_connection" {
 ## Examples
 
 - [ Example basic Transit Gateway](examples/basic)
+- [  Example Transit Gateway that connects two VPCs in two different accounts](examples/crossaccounts)
 - [  Example Transit Gateway that connects two VPCs](examples/two-vpcs)
 <!-- END EXAMPLES HOOK -->
 
