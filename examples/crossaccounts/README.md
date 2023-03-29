@@ -1,6 +1,6 @@
 #  Example Transit Gateway that connects two VPCs in two different accounts
 
-This example creates 2 VPCs in two different accounts, and illustrates how to provision a transit gateway in one of them and to configure connectivity between the 2 VPCs, performing the approval action.
+This example creates 2 VPCs in two different accounts (or as alternative allows to use an existing VPC for the second account), and illustrates how to provision a transit gateway in the first of them and to configure connectivity between the 2 VPCs, performing the approval action.
 
 Two providers are defined for the two IBM Cloud accounts involved into the example.
 

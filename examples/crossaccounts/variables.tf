@@ -78,6 +78,12 @@ variable "vpc_name_b" {
   default     = "vpc-b"
 }
 
+variable "existing_vpc_crn_b" {
+  type        = string
+  description = "Account b existing vpc crn for crossaccount test"
+  default     = null
+}
+
 ##### approval flag
 
 variable "run_approval" {
