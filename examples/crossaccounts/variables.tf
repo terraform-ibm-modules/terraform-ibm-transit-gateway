@@ -1,6 +1,6 @@
 # variables Account A
 
-variable "ibmcloud_api_key_a" {
+variable "ibmcloud_api_key" {
   description = "API key that is associated with the account to provision resources to"
   type        = string
   sensitive   = true
@@ -15,6 +15,7 @@ variable "prefix_a" {
 variable "transit_gateway_name" {
   description = "Name of the transit gateway"
   type        = string
+  default     = "crosstg-gw"
 }
 
 variable "region_a" {
@@ -42,7 +43,7 @@ variable "vpc_name_a" {
 
 # variables Account B
 
-variable "ibmcloud_api_key_b" {
+variable "ibmcloud_api_key_ext" {
   description = "API key that is associated with the account to provision resources to"
   type        = string
   sensitive   = true

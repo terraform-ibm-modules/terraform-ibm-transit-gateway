@@ -66,15 +66,21 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:          t,
+		Prefix:           prefix,
 		CloudInfoService: sharedInfoSvc, // use pointer to shared info svc to keep track of region selections
 		DefaultRegion:    "us-south",
 		TerraformDir:     TwoVpcsExampleTerraformDir,
+		ResourceGroup:    resourceGroup,
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"transit_gateway_name": fmt.Sprintf("%s-%s", prefix, "tg"),
+		"transit_gateway_name": fmt.Sprintf("%s-%s", prefix, "crosstg"),
 		"region_a":             options.Region,
 		"region_b":             options.Region,
+		"prefix_a":             fmt.Sprintf("%s-%s", prefix, "a"),
+		"prefix_b":             fmt.Sprintf("%s-%s", prefix, "b"),
+		"resource_group_a":     options.ResourceGroup,
+		"resource_group_b":     options.ResourceGroup,
 	}
 
 	return options
@@ -107,7 +113,7 @@ func TestRunCrossaccountsExample(t *testing.T) {
 	// the second run performs an approve on the connection request
 	t.Parallel()
 
-	options := setupOptionsCrossaccountsExample(t, "crossaccounts")
+	options := setupOptionsCrossaccountsExample(t, "cross")
 	options.SkipTestTearDown = true
 	// first run disabled approval
 	options.TerraformVars["run_approval"] = false
