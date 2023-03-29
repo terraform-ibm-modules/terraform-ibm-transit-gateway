@@ -9,8 +9,8 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
-	"gopkg.in/yaml.v2"
 )
 
 const resourceGroup = "geretain-test-transit-gw"
@@ -20,40 +20,18 @@ var sharedInfoSvc *cloudinfo.CloudInfoService
 // Define a struct with fields that match the structure of the YAML data
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
-// config parameters definition
-type Config struct {
-	GeStagingVpcCrn    string `yaml:"gestaging_vpc_crn"`
-	GeStagingRgName    string `yaml:"gestaging_rg"`
-	GeStagingVpcRegion string `yaml:"gestaging_vpc_region"`
-}
-
-var geStagingVpcCrn string
-var geStagingRgName string
-var geStagingVpcRegion string
+var permanentResources map[string]interface{}
 
 // Runs before any parallel tests, used to set up a shared InfoService object to track region usage
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
 
-	// Read the YAML file contents
-	data, err := os.ReadFile(yamlLocation)
+	// loading permanent resources from yaml
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
 	if err != nil {
 		log.Fatal(err)
 	}
-	// Create a struct to hold the YAML data
-	var config Config
-	// Unmarshal the YAML data into the struct
-	err = yaml.Unmarshal(data, &config)
-	if err != nil {
-		log.Fatal(err)
-	}
-	// Parse the gestaging_vpc_crn to use in the test
-	geStagingVpcCrn = config.GeStagingVpcCrn
-	geStagingRgName = config.GeStagingRgName
-	geStagingVpcRegion = config.GeStagingVpcRegion
-	log.Output(1, "TestMain using geStagingVpcCrn "+geStagingVpcCrn)
-	log.Output(1, "TestMain using geStagingVpcCrn "+geStagingRgName)
-	log.Output(1, "TestMain using geStagingVpcRegion "+geStagingVpcRegion)
 
 	os.Exit(m.Run())
 }
@@ -103,7 +81,6 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
 		Prefix:        prefix,
-		DefaultRegion: geStagingVpcRegion, // using target account region as default one
 		TerraformDir:  TwoVpcsExampleTerraformDir,
 		ResourceGroup: resourceGroup,
 	})
@@ -111,13 +88,13 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 	options.TerraformVars = map[string]interface{}{
 		"transit_gateway_name": fmt.Sprintf("%s-%s", prefix, "crosstg"),
 		// using the same region of the target account
-		"region_a": geStagingVpcRegion,
-		"region_b": geStagingVpcRegion,
+		"region_a": permanentResources["gestaging_vpc_region"],
+		"region_b": permanentResources["gestaging_vpc_region"],
 		"prefix_a": fmt.Sprintf("%s-%s", prefix, "a"),
 		// using existing vpc crn
-		"existing_vpc_crn_b": geStagingVpcCrn,
+		"existing_vpc_crn_b": permanentResources["gestaging_vpc_crn"],
 		"resource_group_a":   options.ResourceGroup,
-		"resource_group_b":   geStagingRgName,
+		"resource_group_b":   permanentResources["gestaging_rg"],
 	}
 
 	return options
