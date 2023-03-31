@@ -8,6 +8,7 @@ import (
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -77,19 +78,20 @@ func setupOptions2VpcsExample(t *testing.T, prefix string) *testhelper.TestOptio
 
 func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.TestOptions {
 	const TwoVpcsExampleTerraformDir = "examples/crossaccounts"
+
+	// loading and setting apikeys to perform the test
+	// from TF_VAR_ibmcloud_api_key and TF_VAR_ibmcloud_api_key_ext env variables
+	// to TF_VAR_ibmcloud_api_key_a and TF_VAR_ibmcloud_api_key_b env variables
 	ibmCloudApiKeyAEnvVarName := "TF_VAR_ibmcloud_api_key"
 	ibmCloudApiKeyA := ""
 	valA, presentA := os.LookupEnv(ibmCloudApiKeyAEnvVarName)
-	if presentA {
-		ibmCloudApiKeyA = valA
-	}
+	require.True(t, presentA)
+	ibmCloudApiKeyA = valA
 	ibmCloudApiKeyBEnvVarName := "TF_VAR_ibmcloud_api_key_ext"
 	ibmCloudApiKeyB := ""
 	valB, presentB := os.LookupEnv(ibmCloudApiKeyBEnvVarName)
-	if presentB {
-		ibmCloudApiKeyB = valB
-	}
-
+	require.True(t, presentB)
+	ibmCloudApiKeyB = valB
 	os.Setenv("TF_VAR_ibmcloud_api_key_a", ibmCloudApiKeyA)
 	os.Setenv("TF_VAR_ibmcloud_api_key_b", ibmCloudApiKeyB)
 
