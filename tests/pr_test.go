@@ -77,6 +77,21 @@ func setupOptions2VpcsExample(t *testing.T, prefix string) *testhelper.TestOptio
 
 func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.TestOptions {
 	const TwoVpcsExampleTerraformDir = "examples/crossaccounts"
+	ibmCloudApiKeyAEnvVarName := "TF_VAR_ibmcloud_api_key"
+	ibmCloudApiKeyA := ""
+	valA, presentA := os.LookupEnv(ibmCloudApiKeyAEnvVarName)
+	if presentA {
+		ibmCloudApiKeyA = valA
+	}
+	ibmCloudApiKeyBEnvVarName := "TF_VAR_ibmcloud_api_key_ext"
+	ibmCloudApiKeyB := ""
+	valB, presentB := os.LookupEnv(ibmCloudApiKeyBEnvVarName)
+	if presentB {
+		ibmCloudApiKeyB = valB
+	}
+
+	os.Setenv("TF_VAR_ibmcloud_api_key_a", ibmCloudApiKeyA)
+	os.Setenv("TF_VAR_ibmcloud_api_key_b", ibmCloudApiKeyB)
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
@@ -84,6 +99,7 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 		TerraformDir:  TwoVpcsExampleTerraformDir,
 		ResourceGroup: resourceGroup,
 	})
+	const ibmcloudApiKeyVar = "TF_VAR_ibmcloud_api_key"
 
 	options.TerraformVars = map[string]interface{}{
 		"transit_gateway_name": fmt.Sprintf("%s-%s", prefix, "crosstg"),

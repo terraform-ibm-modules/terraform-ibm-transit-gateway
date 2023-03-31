@@ -1,11 +1,11 @@
 output "tg_id" {
   description = "The ID of the transit gateway"
-  value       = ibm_tg_gateway.tg_gw_instance.id
+  value       = local.transit_gateway_id
 }
 
 output "tg_crn" {
   description = "CRN of the gateway"
-  value       = ibm_tg_gateway.tg_gw_instance.crn
+  value       = local.transit_gateway_crn
 }
 
 output "vpc_conn_ids" {

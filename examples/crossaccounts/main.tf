@@ -7,7 +7,6 @@
 resource "ibm_resource_group" "resource_group_a" {
   count    = var.resource_group_a != null ? 0 : 1
   name     = "${var.prefix_a}-rg"
-  quota_id = null
   provider = ibm.accountA
 }
 
@@ -43,7 +42,6 @@ module "vpc_a" {
 resource "ibm_resource_group" "resource_group_b" {
   count    = var.resource_group_b != null ? 0 : 1
   name     = "${var.prefix_b}-rg"
-  quota_id = null
   provider = ibm.accountB
 }
 
@@ -78,18 +76,30 @@ module "vpc_b" {
 }
 
 ##############################################################################
-# Transit Gateway connects the 2 VPCs - created in Account A
+# Transit Gateway connecting the 2 VPCs - created in Account A and passed as existing gateway
+##############################################################################
+
+resource "ibm_tg_gateway" "tg_gw_instance" {
+  name           = var.transit_gateway_name
+  location       = var.region_a
+  global         = false
+  resource_group = var.resource_group_a != null ? data.ibm_resource_group.existing_resource_group_a[0].id : ibm_resource_group.resource_group_a[0].id
+  tags           = var.resource_tags_a
+  provider       = ibm.accountA
+}
+
+##############################################################################
+# Cross-accounts transit gateway connection - created in Account A and using existing Transit Gateway instance
 ##############################################################################
 
 module "tg_gateway_connection" {
-  source                    = "../.."
-  transit_gateway_name      = var.transit_gateway_name
-  region                    = var.region_a
-  global_routing            = false
-  resource_tags             = var.resource_tags_a
-  resource_group_id         = var.resource_group_a != null ? data.ibm_resource_group.existing_resource_group_a[0].id : ibm_resource_group.resource_group_a[0].id
-  vpc_connections           = [module.vpc_a.vpc_crn, local.vpc_b_crn]
-  classic_connections_count = 0
+  depends_on = [
+    ibm_tg_gateway.tg_gw_instance
+  ]
+  source                        = "../.."
+  existing_transit_gateway_name = ibm_tg_gateway.tg_gw_instance.name
+  vpc_connections               = [module.vpc_a.vpc_crn, local.vpc_b_crn]
+  classic_connections_count     = 0
   providers = {
     ibm = ibm.accountA
   }

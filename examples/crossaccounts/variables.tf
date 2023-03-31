@@ -1,6 +1,6 @@
 # variables Account A
 
-variable "ibmcloud_api_key" {
+variable "ibmcloud_api_key_a" {
   description = "API key that is associated with the account to provision resources to"
   type        = string
   sensitive   = true
@@ -43,7 +43,7 @@ variable "vpc_name_a" {
 
 # variables Account B
 
-variable "ibmcloud_api_key_ext" {
+variable "ibmcloud_api_key_b" {
   description = "API key that is associated with the account to provision resources to"
   type        = string
   sensitive   = true

@@ -57,17 +57,19 @@ No modules.
 | [ibm_tg_connection.classic_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_connection.vpc_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_gateway.tg_gw_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
+| [ibm_tg_gateway.existing_tg_gw_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/tg_gateway) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_classic_connections_count"></a> [classic\_connections\_count](#input\_classic\_connections\_count) | Number of classic connections to add. | `number` | n/a | yes |
+| <a name="input_existing_transit_gateway_name"></a> [existing\_transit\_gateway\_name](#input\_existing\_transit\_gateway\_name) | Name of an existing transit gateway to connect VPCs. If null a new Transit Gateway will be created (transit\_gateway\_name and region required) | `string` | `null` | no |
 | <a name="input_global_routing"></a> [global\_routing](#input\_global\_routing) | Gateways with global routing (true) to connect to the networks outside their associated region | `bool` | `false` | no |
-| <a name="input_region"></a> [region](#input\_region) | The IBM Cloud region where all resources are provisioned. | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The IBM Cloud region where all resources are provisioned. It can be null if existing\_transit\_gateway\_name is not null | `string` | `null` | no |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | Resource group ID where the transit gateway to be created. | `string` | `null` | no |
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | List of tags | `list(string)` | `null` | no |
-| <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | Name of the transit gateway | `string` | n/a | yes |
+| <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | Name of the transit gateway to create. It can be null if existing\_transit\_gateway\_name is not null | `string` | `null` | no |
 | <a name="input_vpc_connections"></a> [vpc\_connections](#input\_vpc\_connections) | The list of vpc instance resource\_crn to add network connections for. | `list(string)` | n/a | yes |
 
 ## Outputs
