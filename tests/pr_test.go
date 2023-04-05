@@ -2,11 +2,14 @@ package test
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -14,9 +17,21 @@ const resourceGroup = "geretain-test-transit-gw"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
+// Define a struct with fields that match the structure of the YAML data
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
+
+var permanentResources map[string]interface{}
+
 // Runs before any parallel tests, used to set up a shared InfoService object to track region usage
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	// loading permanent resources from yaml
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	os.Exit(m.Run())
 }
@@ -60,10 +75,52 @@ func setupOptions2VpcsExample(t *testing.T, prefix string) *testhelper.TestOptio
 	return options
 }
 
+func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.TestOptions {
+	const TwoVpcsExampleTerraformDir = "examples/crossaccounts"
+
+	// loading and setting apikeys to perform the test
+	// from TF_VAR_ibmcloud_api_key and TF_VAR_ibmcloud_api_key_ext env variables
+	// to TF_VAR_ibmcloud_api_key_account_a and TF_VAR_ibmcloud_api_key_account_b env variables
+	ibmCloudApiKeyAEnvVarName := "TF_VAR_ibmcloud_api_key"
+	ibmCloudApiKeyA := ""
+	valA, presentA := os.LookupEnv(ibmCloudApiKeyAEnvVarName)
+	require.True(t, presentA)
+	ibmCloudApiKeyA = valA
+	ibmCloudApiKeyBEnvVarName := "TF_VAR_ibmcloud_api_key_ext"
+	ibmCloudApiKeyB := ""
+	valB, presentB := os.LookupEnv(ibmCloudApiKeyBEnvVarName)
+	require.True(t, presentB)
+	ibmCloudApiKeyB = valB
+	os.Setenv("TF_VAR_ibmcloud_api_key_account_a", ibmCloudApiKeyA)
+	os.Setenv("TF_VAR_ibmcloud_api_key_account_b", ibmCloudApiKeyB)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		Prefix:        prefix,
+		TerraformDir:  TwoVpcsExampleTerraformDir,
+		ResourceGroup: resourceGroup,
+	})
+	const ibmcloudApiKeyVar = "TF_VAR_ibmcloud_api_key"
+
+	options.TerraformVars = map[string]interface{}{
+		"transit_gateway_name": fmt.Sprintf("%s-%s", prefix, "crosstg"),
+		// using the same region of the target account
+		"region_account_a": permanentResources["gestaging_vpc_region"],
+		"region_account_b": permanentResources["gestaging_vpc_region"],
+		"prefix_account_a": fmt.Sprintf("%s-%s", prefix, "a"),
+		// using existing vpc crn
+		"existing_vpc_crn_account_b": permanentResources["gestaging_vpc_crn"],
+		"resource_group_account_a":   options.ResourceGroup,
+		"resource_group_account_b":   permanentResources["gestaging_rg"],
+	}
+
+	return options
+}
+
 func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsBasicExample(t, "ibm-tg")
+	options := setupOptionsBasicExample(t, "tg")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -74,6 +131,16 @@ func TestRun2VpcsExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions2VpcsExample(t, "twovpcs-tg")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunCrossaccountsExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsCrossaccountsExample(t, "cross")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")

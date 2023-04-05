@@ -1,19 +1,19 @@
 output "tg_id" {
   description = "The ID of the transit gateway"
-  value       = ibm_tg_gateway.tg_gw_instance.id
+  value       = local.transit_gateway_id
 }
 
 output "tg_crn" {
   description = "CRN of the gateway"
-  value       = ibm_tg_gateway.tg_gw_instance.crn
+  value       = local.transit_gateway_crn
 }
 
 output "vpc_conn_ids" {
   description = "List of VPC connection IDs"
-  value       = ibm_tg_connection.vpc_connections[*].connection_id
+  value       = { for k, v in ibm_tg_connection.vpc_connections : v.network_id => v.connection_id }
 }
 
 output "classic_conn_ids" {
   description = "List of classic connection IDs"
-  value       = ibm_tg_connection.classic_connections[*].connection_id
+  value       = { for k, v in ibm_tg_connection.classic_connections : v.network_id => v.connection_id }
 }

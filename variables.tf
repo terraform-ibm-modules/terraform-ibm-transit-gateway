@@ -1,11 +1,13 @@
 variable "transit_gateway_name" {
-  description = "Name of the transit gateway"
+  description = "Name of the transit gateway to create. It can be null if existing_transit_gateway_name is not null"
   type        = string
+  default     = null
 }
 
 variable "region" {
-  description = "The IBM Cloud region where all resources are provisioned."
+  description = "The IBM Cloud region where all resources are provisioned. It can be null if existing_transit_gateway_name is not null"
   type        = string
+  default     = null
 }
 
 variable "global_routing" {
@@ -16,6 +18,12 @@ variable "global_routing" {
 
 variable "resource_group_id" {
   description = "Resource group ID where the transit gateway to be created."
+  type        = string
+  default     = null
+}
+
+variable "existing_transit_gateway_name" {
+  description = "Name of an existing transit gateway to connect VPCs. If null a new Transit Gateway will be created (transit_gateway_name and region required)"
   type        = string
   default     = null
 }

@@ -54,3 +54,4 @@ Brewfile.lock.json
 
 # Ignore .vscode files
 .vscode/
+*.code-workspace

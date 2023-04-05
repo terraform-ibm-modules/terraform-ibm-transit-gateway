@@ -11,7 +11,22 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 34
+        "line": 42
+      }
+    },
+    "existing_transit_gateway_name": {
+      "name": "existing_transit_gateway_name",
+      "type": "string",
+      "description": "Name of an existing transit gateway to connect VPCs. If null a new Transit Gateway will be created (transit_gateway_name and region required)",
+      "required": true,
+      "source": [
+        "data.ibm_tg_gateway.existing_tg_gw_instance.count",
+        "data.ibm_tg_gateway.existing_tg_gw_instance.name",
+        "ibm_tg_gateway.tg_gw_instance.count"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 25
       }
     },
     "global_routing": {
@@ -24,20 +39,20 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 11
+        "line": 13
       }
     },
     "region": {
       "name": "region",
       "type": "string",
-      "description": "The IBM Cloud region where all resources are provisioned.",
+      "description": "The IBM Cloud region where all resources are provisioned. It can be null if existing_transit_gateway_name is not null",
       "required": true,
       "source": [
         "ibm_tg_gateway.tg_gw_instance.location"
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 6
+        "line": 7
       },
       "cloud_data_type": "region",
       "immutable": true
@@ -51,7 +66,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 17
+        "line": 19
       },
       "cloud_data_type": "resource_group",
       "computed": true
@@ -65,7 +80,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 23
+        "line": 31
       },
       "min_length": 1,
       "max_length": 128,
@@ -78,7 +93,7 @@
     "transit_gateway_name": {
       "name": "transit_gateway_name",
       "type": "string",
-      "description": "Name of the transit gateway",
+      "description": "Name of the transit gateway to create. It can be null if existing_transit_gateway_name is not null",
       "required": true,
       "source": [
         "ibm_tg_gateway.tg_gw_instance.name"
@@ -102,7 +117,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 29
+        "line": 37
       },
       "immutable": true,
       "computed": true
@@ -120,18 +135,16 @@
     "tg_crn": {
       "name": "tg_crn",
       "description": "CRN of the gateway",
-      "value": "ibm_tg_gateway.tg_gw_instance.crn",
+      "value": "local.transit_gateway_crn",
       "pos": {
         "filename": "outputs.tf",
         "line": 6
-      },
-      "type": "TypeString",
-      "cloud_data_type": "crn"
+      }
     },
     "tg_id": {
       "name": "tg_id",
       "description": "The ID of the transit gateway",
-      "value": "ibm_tg_gateway.tg_gw_instance.id",
+      "value": "local.transit_gateway_id",
       "pos": {
         "filename": "outputs.tf",
         "line": 1
@@ -170,7 +183,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 18
+        "line": 29
       }
     },
     "ibm_tg_connection.vpc_connections": {
@@ -186,7 +199,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 9
+        "line": 20
       }
     },
     "ibm_tg_gateway.tg_gw_instance": {
@@ -194,6 +207,7 @@
       "type": "ibm_tg_gateway",
       "name": "tg_gw_instance",
       "attributes": {
+        "count": "existing_transit_gateway_name",
         "global": "global_routing",
         "location": "region",
         "name": "transit_gateway_name",
@@ -205,10 +219,27 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 1
+        "line": 11
       }
     }
   },
-  "data_resources": {},
+  "data_resources": {
+    "data.ibm_tg_gateway.existing_tg_gw_instance": {
+      "mode": "data",
+      "type": "ibm_tg_gateway",
+      "name": "existing_tg_gw_instance",
+      "attributes": {
+        "count": "existing_transit_gateway_name",
+        "name": "existing_transit_gateway_name"
+      },
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 6
+      }
+    }
+  },
   "module_calls": {}
 }
