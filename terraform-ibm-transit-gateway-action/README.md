@@ -11,7 +11,7 @@ For more information see [Transit Gateway - Adding a cross-account connection](h
 # provider for account B
 provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key_ext # pragma: allowlist secret external account apikey
-  region           = var.region_b
+  region           = var.region_account_b
   alias            = "accountB"
 }
 
