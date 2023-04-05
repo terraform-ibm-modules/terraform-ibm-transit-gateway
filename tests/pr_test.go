@@ -120,7 +120,7 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsBasicExample(t, "ibm-tg")
+	options := setupOptionsBasicExample(t, "tg")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
