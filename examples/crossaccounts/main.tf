@@ -4,25 +4,25 @@
 # Resource Group
 ##############################################################################
 
-resource "ibm_resource_group" "resource_group_a" {
-  count    = var.resource_group_a != null ? 0 : 1
-  name     = "${var.prefix_a}-rg"
+resource "ibm_resource_group" "resource_group_account_a" {
+  count    = var.resource_group_account_a != null ? 0 : 1
+  name     = "${var.prefix_account_a}-rg"
   provider = ibm.accountA
 }
 
-data "ibm_resource_group" "existing_resource_group_a" {
-  count    = var.resource_group_a != null ? 1 : 0
-  name     = var.resource_group_a
+data "ibm_resource_group" "existing_resource_group_account_a" {
+  count    = var.resource_group_account_a != null ? 1 : 0
+  name     = var.resource_group_account_a
   provider = ibm.accountA
 }
 
 module "vpc_a" {
   source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v5.0.1"
-  resource_group_id = var.resource_group_a != null ? data.ibm_resource_group.existing_resource_group_a[0].id : ibm_resource_group.resource_group_a[0].id
-  region            = var.region_a
-  prefix            = var.prefix_a
-  tags              = var.resource_tags_a
-  name              = var.vpc_name_a
+  resource_group_id = var.resource_group_account_a != null ? data.ibm_resource_group.existing_resource_group_account_a[0].id : ibm_resource_group.resource_group_account_a[0].id
+  region            = var.region_account_a
+  prefix            = var.prefix_account_a
+  tags              = var.resource_tags_account_a
+  name              = var.vpc_name_account_a
   use_public_gateways = {
     zone-1 = false
     zone-2 = false
@@ -39,32 +39,32 @@ module "vpc_a" {
 # Resource Group
 ##############################################################################
 
-resource "ibm_resource_group" "resource_group_b" {
-  count    = var.resource_group_b != null ? 0 : 1
-  name     = "${var.prefix_b}-rg"
+resource "ibm_resource_group" "resource_group_account_b" {
+  count    = var.resource_group_account_b != null ? 0 : 1
+  name     = "${var.prefix_account_b}-rg"
   provider = ibm.accountB
 }
 
-data "ibm_resource_group" "existing_resource_group_b" {
-  count    = var.resource_group_b != null ? 1 : 0
-  name     = var.resource_group_b
+data "ibm_resource_group" "existing_resource_group_account_b" {
+  count    = var.resource_group_account_b != null ? 1 : 0
+  name     = var.resource_group_account_b
   provider = ibm.accountB
 }
 
 
 locals {
-  vpc_b_crn = var.existing_vpc_crn_b != null ? var.existing_vpc_crn_b : module.vpc_b[0].vpc_crn
+  vpc_b_crn = var.existing_vpc_crn_account_b != null ? var.existing_vpc_crn_account_b : module.vpc_b[0].vpc_crn
 }
 
 module "vpc_b" {
-  # if existing_vpc_crn_b is set using the existing VPC instead of creating a new one
-  count             = var.existing_vpc_crn_b != null ? 0 : 1
+  # if existing_vpc_crn_account_b is set using the existing VPC instead of creating a new one
+  count             = var.existing_vpc_crn_account_b != null ? 0 : 1
   source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v5.0.1"
-  resource_group_id = var.resource_group_b != null ? data.ibm_resource_group.existing_resource_group_b[0].id : ibm_resource_group.resource_group_b[0].id
-  region            = var.region_b
-  prefix            = var.prefix_b
-  tags              = var.resource_tags_b
-  name              = var.vpc_name_b
+  resource_group_id = var.resource_group_account_b != null ? data.ibm_resource_group.existing_resource_group_account_b[0].id : ibm_resource_group.resource_group_account_b[0].id
+  region            = var.region_account_b
+  prefix            = var.prefix_account_b
+  tags              = var.resource_tags_account_b
+  name              = var.vpc_name_account_b
   use_public_gateways = {
     zone-1 = false
     zone-2 = false
@@ -81,10 +81,10 @@ module "vpc_b" {
 
 resource "ibm_tg_gateway" "tg_gw_instance" {
   name           = var.transit_gateway_name
-  location       = var.region_a
+  location       = var.region_account_a
   global         = false
-  resource_group = var.resource_group_a != null ? data.ibm_resource_group.existing_resource_group_a[0].id : ibm_resource_group.resource_group_a[0].id
-  tags           = var.resource_tags_a
+  resource_group = var.resource_group_account_a != null ? data.ibm_resource_group.existing_resource_group_account_a[0].id : ibm_resource_group.resource_group_account_a[0].id
+  tags           = var.resource_tags_account_a
   provider       = ibm.accountA
 }
 

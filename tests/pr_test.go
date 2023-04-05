@@ -80,7 +80,7 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 
 	// loading and setting apikeys to perform the test
 	// from TF_VAR_ibmcloud_api_key and TF_VAR_ibmcloud_api_key_ext env variables
-	// to TF_VAR_ibmcloud_api_key_a and TF_VAR_ibmcloud_api_key_b env variables
+	// to TF_VAR_ibmcloud_api_key_account_a and TF_VAR_ibmcloud_api_key_account_b env variables
 	ibmCloudApiKeyAEnvVarName := "TF_VAR_ibmcloud_api_key"
 	ibmCloudApiKeyA := ""
 	valA, presentA := os.LookupEnv(ibmCloudApiKeyAEnvVarName)
@@ -91,8 +91,8 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 	valB, presentB := os.LookupEnv(ibmCloudApiKeyBEnvVarName)
 	require.True(t, presentB)
 	ibmCloudApiKeyB = valB
-	os.Setenv("TF_VAR_ibmcloud_api_key_a", ibmCloudApiKeyA)
-	os.Setenv("TF_VAR_ibmcloud_api_key_b", ibmCloudApiKeyB)
+	os.Setenv("TF_VAR_ibmcloud_api_key_account_a", ibmCloudApiKeyA)
+	os.Setenv("TF_VAR_ibmcloud_api_key_account_b", ibmCloudApiKeyB)
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
@@ -105,13 +105,13 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 	options.TerraformVars = map[string]interface{}{
 		"transit_gateway_name": fmt.Sprintf("%s-%s", prefix, "crosstg"),
 		// using the same region of the target account
-		"region_a": permanentResources["gestaging_vpc_region"],
-		"region_b": permanentResources["gestaging_vpc_region"],
-		"prefix_a": fmt.Sprintf("%s-%s", prefix, "a"),
+		"region_account_a": permanentResources["gestaging_vpc_region"],
+		"region_account_b": permanentResources["gestaging_vpc_region"],
+		"prefix_account_a": fmt.Sprintf("%s-%s", prefix, "a"),
 		// using existing vpc crn
-		"existing_vpc_crn_b": permanentResources["gestaging_vpc_crn"],
-		"resource_group_a":   options.ResourceGroup,
-		"resource_group_b":   permanentResources["gestaging_rg"],
+		"existing_vpc_crn_account_b": permanentResources["gestaging_vpc_crn"],
+		"resource_group_account_a":   options.ResourceGroup,
+		"resource_group_account_b":   permanentResources["gestaging_rg"],
 	}
 
 	return options
