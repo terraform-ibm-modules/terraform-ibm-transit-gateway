@@ -105,13 +105,11 @@ module "tg_gateway_connection" {
   }
 }
 
-###### approval action
+##############################################################################
+# Cross-accounts transit gateway connection - approval action performed on the Account B
+##############################################################################
 
 module "tg_gateway_connection_crossaccounts_approve" {
-  count = var.run_approval == true ? 1 : 0
-  depends_on = [
-    module.tg_gateway_connection
-  ]
   source             = "../../terraform-ibm-transit-gateway-action"
   vpc_connection_ids = [module.tg_gateway_connection.vpc_conn_ids[local.vpc_b_crn]]
   transit_gw_id      = module.tg_gateway_connection.tg_id

@@ -83,11 +83,3 @@ variable "existing_vpc_crn_b" {
   description = "Account b existing vpc crn for crossaccount test"
   default     = null
 }
-
-##### approval flag
-
-variable "run_approval" {
-  type        = bool
-  description = "feature flag to disable or enable the approval action on the transit gateway network connection for the network owner account. Default to false"
-  default     = false
-}

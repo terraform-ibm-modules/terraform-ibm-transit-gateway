@@ -6,7 +6,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
@@ -139,40 +138,13 @@ func TestRun2VpcsExample(t *testing.T) {
 }
 
 func TestRunCrossaccountsExample(t *testing.T) {
-	// the test performs two runs of init&apply due to the bug of the provider
-	// https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4445
-	// the first run creates the resources without approving the connection
-	// the second run performs an approve on the connection request
 	t.Parallel()
 
 	options := setupOptionsCrossaccountsExample(t, "cross")
-	options.SkipTestTearDown = true
-	// first run disabled approval
-	options.TerraformVars["run_approval"] = false
-	log.Output(1, "Performing first run with approval disabled")
+
 	output, err := options.RunTestConsistency()
-	// deferring TestTearDown to have it to run whatever happens during execution
-	defer options.TestTearDown()
-	if err != nil {
-		fmt.Println("Error happened during the first run", err)
-	} else {
-		log.Output(1, "Completed first run with approval disabled")
-
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-
-		options.TerraformVars["run_approval"] = true
-		log.Output(1, "Performing second run with approval enabled")
-
-		output2, err2 := terraform.InitAndApplyE(options.Testing, options.TerraformOptions)
-		if err2 != nil {
-			fmt.Println("Error happened during the second run", err2)
-		} else {
-			log.Output(1, "Completed second run with approval enabled")
-			assert.Nil(t, err2, "This should not have errored")
-			assert.NotNil(t, output2, "Expected some output")
-		}
-	}
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeExample(t *testing.T) {
