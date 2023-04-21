@@ -17,7 +17,7 @@ data "ibm_resource_group" "existing_resource_group_account_a" {
 }
 
 module "vpc_a" {
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.0"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.1"
   resource_group_id = var.resource_group_account_a != null ? data.ibm_resource_group.existing_resource_group_account_a[0].id : ibm_resource_group.resource_group_account_a[0].id
   region            = var.region_account_a
   prefix            = var.prefix_account_a
@@ -59,7 +59,7 @@ locals {
 module "vpc_b" {
   # if existing_vpc_crn_account_b is set using the existing VPC instead of creating a new one
   count             = var.existing_vpc_crn_account_b != null ? 0 : 1
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.0"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.1"
   resource_group_id = var.resource_group_account_b != null ? data.ibm_resource_group.existing_resource_group_account_b[0].id : ibm_resource_group.resource_group_account_b[0].id
   region            = var.region_account_b
   prefix            = var.prefix_account_b
