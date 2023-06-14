@@ -18,8 +18,8 @@ data "ibm_resource_group" "resource_group" {
 }
 
 module "tg_gateway_connection" {
-  # Replace "main" with a GIT release version to lock into a specific release
-  source = "git::https://github.com/terraform-ibm-modules/transit-gateway.git?ref=main"
+  source  = "terraform-ibm-modules/transit-gateway/ibm"
+  version = "latest" # Replace "latest" with a release version to lock into a specific release
   transit_gateway_name = "transit gateway name"
   location             = "eu-de"
   global_routing       = true
