@@ -43,3 +43,9 @@ variable "classic_connections_count" {
   type        = number
   description = "Number of classic connections to add."
 }
+
+variable "delete_timeout" {
+  type        = string
+  description = "Deleting timeout value of the ibm_tg_gateway"
+  default     = "45m"
+}
