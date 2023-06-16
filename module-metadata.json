@@ -14,6 +14,16 @@
         "line": 42
       }
     },
+    "delete_timeout": {
+      "name": "delete_timeout",
+      "type": "string",
+      "description": "Deleting timeout value of the ibm_tg_gateway",
+      "default": "45m",
+      "pos": {
+        "filename": "variables.tf",
+        "line": 47
+      }
+    },
     "existing_transit_gateway_name": {
       "name": "existing_transit_gateway_name",
       "type": "string",
@@ -183,7 +193,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 29
+        "line": 32
       }
     },
     "ibm_tg_connection.vpc_connections": {
@@ -199,7 +209,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 20
+        "line": 23
       }
     },
     "ibm_tg_gateway.tg_gw_instance": {

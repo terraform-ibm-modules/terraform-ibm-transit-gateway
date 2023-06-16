@@ -15,6 +15,9 @@ resource "ibm_tg_gateway" "tg_gw_instance" {
   global         = var.global_routing != null ? var.global_routing : false
   resource_group = var.resource_group_id != null ? var.resource_group_id : null
   tags           = var.resource_tags != null ? var.resource_tags : null
+  timeouts {
+    delete = var.delete_timeout
+  }
 }
 
 resource "ibm_tg_connection" "vpc_connections" {
