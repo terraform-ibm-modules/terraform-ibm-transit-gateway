@@ -1,8 +1,8 @@
-# IBM Cloud Transit Gateway Action - Terraform Module
+# IBM Cloud Transit Gateway action module
 
-With IBM Cloud® Transit Gateway Action, you can approve or reject the connection request(s) following a cross-accounts VPCs connection using a Transit Gateway. This scenario expects the Transit Gateway and one of the VPC to be owned by the same account **A** and the second VPC to be owned by a different account **B**: the account **B** will receive an approval request to be approved before having the connection to be fully established.
+With the IBM Cloud® Transit Gateway action module, you can approve or reject connection requests for a cross-account VPCs connection that uses a transit gateway. This scenario expects one account to own the transit gateway and one of the VPCs and a different account to own the second VPC. That second account receives an approval request that must be approved before the connection can be established.
 
-For more information see [Transit Gateway - Adding a cross-account connection](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-cross-account-connections&interface=ui).
+For more information, see [adding a cross-account connection](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-cross-account-connections&interface=ui) in the IBM Cloud Docs.
 
 ## Usage
 
@@ -31,7 +31,7 @@ module "tg_gateway_connection_crossaccounts_approve" {
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Example Transit Gateway that connects two VPCs in two different accounts](../examples/crossaccounts)
+- [ Example transit gateway that connects two VPCs in two accounts](../examples/crossaccounts)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -71,7 +71,5 @@ No modules.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Contributing
-
-To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
 
 To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
