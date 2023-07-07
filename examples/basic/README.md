@@ -1,3 +1,3 @@
-# Example basic Transit Gateway
+# Example basic transit gateway
 
-This example illustrates how to provision a transit gateway and configure multiple connections to it. The defaults create a transit gateway without any connection.
+This example illustrates how to provision a transit gateway and configure multiple connections to it. The default settings create a transit gateway without any connections.

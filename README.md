@@ -10,6 +10,8 @@
 
 With IBM Cloud® Transit Gateway, you can create single or multiple transit gateways to connect VPCs. You can also connect your IBM Cloud classic infrastructure to a transit gateway to provide seamless communication with classic infrastructure resources. Any new network that you connect to a transit gateway is then made available to every other network connected to it. For more information, see [About IBM Cloud Transit Gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-about) in the IBM Cloud docs.
 
+This module includes the `terraform-ibm-transit-gateway-action` [approval action submodule](terraform-ibm-transit-gateway-action/README.md) that supports approving or rejecting connection requests in cross-account VPC connections.
+
 ## Usage
 
 ```hcl
@@ -33,9 +35,9 @@ module "tg_gateway_connection" {
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Example basic Transit Gateway](examples/basic)
-- [  Example Transit Gateway that connects two VPCs in two different accounts](examples/crossaccounts)
-- [  Example Transit Gateway that connects two VPCs](examples/two-vpcs)
+- [ Example basic transit gateway](examples/basic)
+- [  Example transit gateway that connects two VPCs in two accounts](examples/crossaccounts)
+- [  Example transit gateway that connects two VPCs](examples/two-vpcs)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -84,7 +86,5 @@ No modules.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Contributing
-
-To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
 
 To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
