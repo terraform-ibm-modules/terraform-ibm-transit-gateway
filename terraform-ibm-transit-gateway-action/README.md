@@ -35,25 +35,25 @@ module "tg_gateway_connection_crossaccounts_approve" {
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
+### Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.52.0 |
 
-## Modules
+### Modules
 
 No modules.
 
-## Resources
+### Resources
 
 | Name | Type |
 |------|------|
 | [ibm_tg_connection_action.classic_tg_cross_connection_approval](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection_action) | resource |
 | [ibm_tg_connection_action.vpc_tg_cross_connection_approval](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection_action) | resource |
 
-## Inputs
+### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -62,7 +62,7 @@ No modules.
 | <a name="input_transit_gw_id"></a> [transit\_gw\_id](#input\_transit\_gw\_id) | ID to the transit gateway where the cross-account connection is created | `string` | n/a | yes |
 | <a name="input_vpc_connection_ids"></a> [vpc\_connection\_ids](#input\_vpc\_connection\_ids) | The list of vpc connection IDs to perform the action for the account owner of ibmcloud\_api\_key | `list(string)` | `[]` | no |
 
-## Outputs
+### Outputs
 
 | Name | Description |
 |------|-------------|
