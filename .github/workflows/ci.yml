@@ -12,4 +12,3 @@ jobs:
     with:
         craSCCv2: true
         craConfigYamlFile: "cra-config.yaml"
-        craEnvironmentVariables: "TF_VAR_transit_gateway_name=transit-gateway, TF_VAR_region=us-south"
