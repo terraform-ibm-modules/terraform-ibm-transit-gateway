@@ -12,6 +12,17 @@ With IBM Cloud® Transit Gateway, you can create single or multiple transit gate
 
 This module includes the `terraform-ibm-transit-gateway-action` [approval action submodule](terraform-ibm-transit-gateway-action/README.md) that supports approving or rejecting connection requests in cross-account VPC connections.
 
+!-- Below content is automatically populated via pre-commit hook -->
+<!-- BEGIN OVERVIEW HOOK -->
+## Overview
+* [terraform-ibm-transit-gateway](#terraform-ibm-transit-gateway)
+* [Examples](./examples)
+    * [ Example transit gateway that connects two VPCs in two accounts](./examples/crossaccounts)
+    * [ Example transit gateway that connects two VPCs](./examples/two-vpcs)
+    * [Example basic transit gateway](./examples/basic)
+* [Contributing](#contributing)
+<!-- END OVERVIEW HOOK -->
+
 ## Usage
 
 ```hcl
