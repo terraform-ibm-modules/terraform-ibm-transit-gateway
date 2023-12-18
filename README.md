@@ -12,7 +12,21 @@ With IBM Cloud® Transit Gateway, you can create single or multiple transit gate
 
 This module includes the `terraform-ibm-transit-gateway-action` [approval action submodule](terraform-ibm-transit-gateway-action/README.md) that supports approving or rejecting connection requests in cross-account VPC connections.
 
-## Usage
+<!-- Below content is automatically populated via pre-commit hook -->
+<!-- BEGIN OVERVIEW HOOK -->
+## Overview
+* [terraform-ibm-transit-gateway](#terraform-ibm-transit-gateway)
+* [Examples](./examples)
+    * [ Example transit gateway that connects two VPCs in two accounts](./examples/crossaccounts)
+    * [ Example transit gateway that connects two VPCs](./examples/two-vpcs)
+    * [Example basic transit gateway](./examples/basic)
+* [Contributing](#contributing)
+<!-- END OVERVIEW HOOK -->
+
+<!-- Match this heading to the name of the root level module (the repo name) -->
+## terraform-ibm-transit-gateway
+
+### Usage
 
 ```hcl
 data "ibm_resource_group" "resource_group" {
@@ -20,25 +34,17 @@ data "ibm_resource_group" "resource_group" {
 }
 
 module "tg_gateway_connection" {
-  source  = "terraform-ibm-modules/transit-gateway/ibm"
-  version = "latest" # Replace "latest" with a release version to lock into a specific release
-  transit_gateway_name = "transit gateway name"
-  location             = "eu-de"
-  global_routing       = true
-  tags                 = ["tag1", "tag2"]
-  resource_group_id    = data.ibm_resource_group.resource_group.id
-  vpc_connections      = ["crn:v1:bluemix:public:is:eu-de:a/7aa6f7b185f2e3170fac9919aa1769ee::vpc:r010-a9fdc623-d702-4381-a116-07546dba1b87","crn:v1:bluemix:public:is:eu-de:a/7aa6f7b185f2e3170fac9919aa1769ee::vpc:r010-4c39039d-e7ef-411d-a191-3cb549dc41a1"]
-  classic_connections_count   = false
+  source                    = "terraform-ibm-modules/transit-gateway/ibm"
+  version                   = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
+  transit_gateway_name      = "transit gateway name"
+  location                  = "eu-de"
+  global_routing            = true
+  tags                      = ["tag1", "tag2"]
+  resource_group_id         = data.ibm_resource_group.resource_group.id
+  vpc_connections           = ["crn:v1:bluemix:public:is:eu-de:a/7aa6f7b185f2e3170fac9919aa1769ee::vpc:r010-a9fdc623-d702-4381-a116-07546dba1b87","crn:v1:bluemix:public:is:eu-de:a/7aa6f7b185f2e3170fac9919aa1769ee::vpc:r010-4c39039d-e7ef-411d-a191-3cb549dc41a1"]
+  classic_connections_count = false
 }
 ```
-
-<!-- BEGIN EXAMPLES HOOK -->
-## Examples
-
-- [ Example basic transit gateway](examples/basic)
-- [  Example transit gateway that connects two VPCs in two accounts](examples/crossaccounts)
-- [  Example transit gateway that connects two VPCs](examples/two-vpcs)
-<!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
