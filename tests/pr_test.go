@@ -3,6 +3,7 @@ package test
 import (
 	"fmt"
 	"log"
+	"maps"
 	"os"
 	"testing"
 
@@ -46,13 +47,16 @@ func setupOptionsBasicExample(t *testing.T, prefix string) *testhelper.TestOptio
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc, // use pointer to shared info svc to keep track of region selections
 		DefaultRegion:    "us-south",
-		TerraformVars: map[string]interface{}{
-			"transit_gateway_name":      fmt.Sprintf("%s-%s", prefix, "tg"),
-			"vpc_connections":           vpcConnections,
-			"classic_connections_count": 0,
-		},
-		TerraformDir: basicExampleTerraformDir,
+		TerraformDir:     basicExampleTerraformDir,
 	})
+
+	terraformVars := map[string]interface{}{
+		"transit_gateway_name":      fmt.Sprintf("%s-%s", options.Prefix, "tg"),
+		"vpc_connections":           vpcConnections,
+		"classic_connections_count": 0,
+	}
+
+	maps.Copy(options.TerraformVars, terraformVars)
 
 	return options
 }
@@ -66,11 +70,14 @@ func setupOptions2VpcsExample(t *testing.T, prefix string) *testhelper.TestOptio
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc, // use pointer to shared info svc to keep track of region selections
 		DefaultRegion:    "us-south",
-		TerraformVars: map[string]interface{}{
-			"transit_gateway_name": fmt.Sprintf("%s-%s", prefix, "tg"),
-		},
-		TerraformDir: TwoVpcsExampleTerraformDir,
+		TerraformDir:     TwoVpcsExampleTerraformDir,
 	})
+
+	terraformVars := map[string]interface{}{
+		"transit_gateway_name": fmt.Sprintf("%s-%s", options.Prefix, "tg"),
+	}
+
+	maps.Copy(options.TerraformVars, terraformVars)
 
 	return options
 }
@@ -103,11 +110,11 @@ func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.T
 	const ibmcloudApiKeyVar = "TF_VAR_ibmcloud_api_key"
 
 	options.TerraformVars = map[string]interface{}{
-		"transit_gateway_name": fmt.Sprintf("%s-%s", prefix, "crosstg"),
+		"transit_gateway_name": fmt.Sprintf("%s-%s", options.Prefix, "crosstg"),
 		// using the same region of the target account
 		"region_account_a": permanentResources["gestaging_vpc_region"],
 		"region_account_b": permanentResources["gestaging_vpc_region"],
-		"prefix_account_a": fmt.Sprintf("%s-%s", prefix, "a"),
+		"prefix_account_a": fmt.Sprintf("%s-%s", options.Prefix, "a"),
 		// using existing vpc crn
 		"existing_vpc_crn_account_b": permanentResources["gestaging_vpc_crn"],
 		"resource_group_account_a":   options.ResourceGroup,
