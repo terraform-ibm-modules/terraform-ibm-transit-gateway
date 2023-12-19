@@ -112,7 +112,7 @@ module "tg_gateway_connection" {
 ##############################################################################
 
 module "tg_gateway_connection_crossaccounts_approve" {
-  source             = "../../terraform-ibm-transit-gateway-action"
+  source             = "../../modules/terraform-ibm-transit-gateway-action"
   vpc_connection_ids = [module.tg_gateway_connection.vpc_conn_ids[local.vpc_b_crn]]
   transit_gw_id      = module.tg_gateway_connection.tg_id
   action             = "approve"

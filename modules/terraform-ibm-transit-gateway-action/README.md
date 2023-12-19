@@ -17,7 +17,7 @@ provider "ibm" {
 
 module "tg_gateway_connection_crossaccounts_approve" {
 
-  source  = "terraform-ibm-modules/transit-gateway/ibm"
+  source  = "terraform-ibm-modules/modules/transit-gateway/ibm"
   version = "latest" # Replace "latest" with a release version to lock into a specific release
   vpc_connection_ids = ["1f6df0af-c2b6-4f1a-97dd-29ed50a8e1f3"] // ID of the transit gateway connection resource
   transit_gw_id      = module.tg_gateway_connection.tg_id // ID of the transit gateway resource
