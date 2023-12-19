@@ -16,6 +16,8 @@ This module includes the `terraform-ibm-transit-gateway-action` [approval action
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
 * [terraform-ibm-transit-gateway](#terraform-ibm-transit-gateway)
+* [Submodules](./modules)
+    * [terraform-ibm-transit-gateway-action](./modules/terraform-ibm-transit-gateway-action)
 * [Examples](./examples)
     * [ Example transit gateway that connects two VPCs in two accounts](./examples/crossaccounts)
     * [ Example transit gateway that connects two VPCs](./examples/two-vpcs)
