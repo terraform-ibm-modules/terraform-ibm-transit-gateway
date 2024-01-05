@@ -144,15 +144,17 @@ func TestRun2VpcsExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunCrossaccountsExample(t *testing.T) {
-	t.Parallel()
+// The account that this test was using has been removed so disabling the test until we decide what account can be used
 
-	options := setupOptionsCrossaccountsExample(t, "cross")
+// func TestRunCrossaccountsExample(t *testing.T) {
+// 	t.Parallel()
 
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
+// 	options := setupOptionsCrossaccountsExample(t, "cross")
+
+// 	output, err := options.RunTestConsistency()
+// 	assert.Nil(t, err, "This should not have errored")
+// 	assert.NotNil(t, output, "Expected some output")
+// }
 
 func TestRunUpgradeExample(t *testing.T) {
 	t.Parallel()
