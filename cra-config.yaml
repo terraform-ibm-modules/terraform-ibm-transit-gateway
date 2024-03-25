@@ -7,6 +7,7 @@ CRA_TARGETS:
     CRA_ENVIRONMENT_VARIABLES:
       TF_VAR_transit_gateway_name: "transit-gateway"
       TF_VAR_region: "us-south"
+      TF_VAR_prefix: "tg"
     # SCC_INSTANCE_ID: "" # The SCC instance ID to use to download profile for CRA scan. If not provided, a default global value will be used.
     # SCC_REGION: "" # The IBM Cloud region that the SCC instance is in. If not provided, a default global value will be used.
     #   TF_VAR_sample: "sample value"

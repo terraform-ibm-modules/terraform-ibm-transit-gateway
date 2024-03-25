@@ -7,7 +7,6 @@ variable "ibmcloud_api_key" {
 variable "prefix" {
   description = "The prefix to append to your resources"
   type        = string
-  default     = "tg"
 }
 
 variable "transit_gateway_name" {

@@ -23,7 +23,6 @@ variable "resource_group" {
 variable "prefix" {
   description = "The prefix to append to your resources"
   type        = string
-  default     = "tg"
 }
 
 variable "global_routing" {
