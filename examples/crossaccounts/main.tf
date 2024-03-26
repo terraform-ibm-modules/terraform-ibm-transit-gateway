@@ -4,22 +4,19 @@
 # Resource Group
 ##############################################################################
 
-resource "ibm_resource_group" "resource_group_account_a" {
-  count    = var.resource_group_account_a != null ? 0 : 1
-  name     = "${var.prefix_account_a}-rg"
-  provider = ibm.accountA
+module "resource_group_account_a" {
+  source  = "terraform-ibm-modules/resource-group/ibm"
+  version = "1.1.5"
+  # if an existing resource group is not set (null) create a new one using prefix
+  resource_group_name          = var.resource_group_account_a == null ? "${var.prefix_account_a}-resource-group" : null
+  existing_resource_group_name = var.resource_group_account_a
 }
 
-data "ibm_resource_group" "existing_resource_group_account_a" {
-  count    = var.resource_group_account_a != null ? 1 : 0
-  name     = var.resource_group_account_a
-  provider = ibm.accountA
-}
 
 module "vpc_a" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
   version           = "7.17.1"
-  resource_group_id = var.resource_group_account_a != null ? data.ibm_resource_group.existing_resource_group_account_a[0].id : ibm_resource_group.resource_group_account_a[0].id
+  resource_group_id = module.resource_group_account_a.resource_group_id
   region            = var.region_account_a
   prefix            = var.prefix_account_a
   tags              = var.resource_tags_account_a
@@ -40,17 +37,14 @@ module "vpc_a" {
 # Resource Group
 ##############################################################################
 
-resource "ibm_resource_group" "resource_group_account_b" {
-  count    = var.resource_group_account_b != null ? 0 : 1
-  name     = "${var.prefix_account_b}-rg"
-  provider = ibm.accountB
+module "resource_group_account_b" {
+  source  = "terraform-ibm-modules/resource-group/ibm"
+  version = "1.1.5"
+  # if an existing resource group is not set (null) create a new one using prefix
+  resource_group_name          = var.resource_group_account_b == null ? "${var.prefix_account_b}-resource-group" : null
+  existing_resource_group_name = var.resource_group_account_b
 }
 
-data "ibm_resource_group" "existing_resource_group_account_b" {
-  count    = var.resource_group_account_b != null ? 1 : 0
-  name     = var.resource_group_account_b
-  provider = ibm.accountB
-}
 
 
 locals {
@@ -62,7 +56,7 @@ module "vpc_b" {
   count             = var.existing_vpc_crn_account_b != null ? 0 : 1
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
   version           = "7.17.1"
-  resource_group_id = var.resource_group_account_b != null ? data.ibm_resource_group.existing_resource_group_account_b[0].id : ibm_resource_group.resource_group_account_b[0].id
+  resource_group_id = module.resource_group_account_b.resource_group_id
   region            = var.region_account_b
   prefix            = var.prefix_account_b
   tags              = var.resource_tags_account_b
@@ -85,7 +79,7 @@ resource "ibm_tg_gateway" "tg_gw_instance" {
   name           = var.transit_gateway_name
   location       = var.region_account_a
   global         = false
-  resource_group = var.resource_group_account_a != null ? data.ibm_resource_group.existing_resource_group_account_a[0].id : ibm_resource_group.resource_group_account_a[0].id
+  resource_group = module.resource_group_account_a.resource_group_id
   tags           = var.resource_tags_account_a
   provider       = ibm.accountA
 }
