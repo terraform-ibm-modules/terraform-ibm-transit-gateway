@@ -48,6 +48,17 @@ module "tg_gateway_connection" {
 }
 ```
 
+### Required IAM access policies
+
+You need the following permissions to run this module.
+
+- IAM services
+  - **IBM Cloud Transit Gateway service**
+    - `Editor` platform access
+  - **No service access**
+    - **Resource Group** \<your resource group>
+    - `Viewer` resource group access
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
 
