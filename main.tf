@@ -40,7 +40,7 @@ resource "ibm_tg_connection" "classic_connections" {
 }
 
 
-resource "ibm_tg_connection_prefix_filter" "test_tg_prefix_filter" {
+resource "ibm_tg_connection_prefix_filter" "add_prefix_filter" {
   count = length(var.add_prefix_filters) > 0 ? length(var.add_prefix_filters) : 0
 
   gateway       = ibm_tg_gateway.tg_gw_instance[0].id

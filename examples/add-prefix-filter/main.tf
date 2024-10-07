@@ -21,7 +21,7 @@ module "vpc_1" {
   region            = var.region
   prefix            = var.prefix
   tags              = var.resource_tags
-  name              = var.vpc1_name
+  name              = "${var.prefix}-vpc1"
   use_public_gateways = {
     zone-1 = false
     zone-2 = false
@@ -36,7 +36,7 @@ module "vpc_2" {
   region            = var.region
   prefix            = var.prefix
   tags              = var.resource_tags
-  name              = var.vpc2_name
+  name              = "${var.prefix}-vpc2"
   use_public_gateways = {
     zone-1 = false
     zone-2 = false
@@ -59,16 +59,16 @@ module "tg_gateway_connection" {
   classic_connections_count = 0
   add_prefix_filters = [
     {
-      action        = "permit"
-      prefix        = "10.10.10.0/24"
-      le            = 24
-      ge            = 24
+      action = "permit"
+      prefix = "10.10.10.0/24"
+      le     = 24
+      ge     = 24
     },
     {
-      action        = "deny"
-      prefix        = "10.20.10.0/24"
-      le            = 24
-      ge            = 24
+      action = "deny"
+      prefix = "10.20.10.0/24"
+      le     = 24
+      ge     = 24
     }
   ]
 }

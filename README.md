@@ -78,7 +78,7 @@ No modules.
 |------|------|
 | [ibm_tg_connection.classic_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_connection.vpc_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
-| [ibm_tg_connection_prefix_filter.test_tg_prefix_filter](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection_prefix_filter) | resource |
+| [ibm_tg_connection_prefix_filter.add_prefix_filter](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection_prefix_filter) | resource |
 | [ibm_tg_gateway.tg_gw_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
 | [ibm_tg_gateway.existing_tg_gw_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/tg_gateway) | data source |
 
@@ -103,6 +103,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_classic_conn_ids"></a> [classic\_conn\_ids](#output\_classic\_conn\_ids) | List of classic connection IDs |
+| <a name="output_filter_ids"></a> [filter\_ids](#output\_filter\_ids) | Prefix filter IDs |
 | <a name="output_tg_crn"></a> [tg\_crn](#output\_tg\_crn) | CRN of the gateway |
 | <a name="output_tg_id"></a> [tg\_id](#output\_tg\_id) | The ID of the transit gateway |
 | <a name="output_vpc_conn_ids"></a> [vpc\_conn\_ids](#output\_vpc\_conn\_ids) | List of VPC connection IDs |

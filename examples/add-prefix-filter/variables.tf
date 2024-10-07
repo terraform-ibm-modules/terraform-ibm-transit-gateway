@@ -30,15 +30,3 @@ variable "resource_tags" {
   description = "List of tags"
   default     = null
 }
-
-variable "vpc1_name" {
-  type        = string
-  description = "Name of the first VPC"
-  default     = "vpc1"
-}
-
-variable "vpc2_name" {
-  type        = string
-  description = "Name of the second VPC"
-  default     = "vpc2"
-}
