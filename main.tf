@@ -23,16 +23,30 @@ resource "ibm_tg_gateway" "tg_gw_instance" {
 resource "ibm_tg_connection" "vpc_connections" {
   count = length(var.vpc_connections)
 
-  gateway      = local.transit_gateway_id
-  network_type = "vpc"
-  name         = "vpc_conn_inst${count.index}"
-  network_id   = var.vpc_connections[count.index]
+  gateway               = local.transit_gateway_id
+  network_type          = "vpc"
+  name                  = "vpc_conn_inst${count.index}"
+  network_id            = var.vpc_connections[count.index]
+  default_prefix_filter = var.default_prefix_filter
 }
 
 resource "ibm_tg_connection" "classic_connections" {
   count = var.classic_connections_count
 
-  gateway      = local.transit_gateway_id
-  network_type = "classic"
-  name         = "classic_conn_inst${count.index}"
+  gateway               = local.transit_gateway_id
+  network_type          = "classic"
+  name                  = "classic_conn_inst${count.index}"
+  default_prefix_filter = var.default_prefix_filter
+}
+
+
+resource "ibm_tg_connection_prefix_filter" "test_tg_prefix_filter" {
+  count = length(var.add_prefix_filters) > 0 ? length(var.add_prefix_filters) : 0
+
+  gateway       = ibm_tg_gateway.tg_gw_instance[0].id
+  connection_id = ibm_tg_connection.vpc_connections[count.index].connection_id
+  action        = var.add_prefix_filters[count.index].action
+  prefix        = var.add_prefix_filters[count.index].prefix
+  le            = var.add_prefix_filters[count.index].le
+  ge            = var.add_prefix_filters[count.index].ge
 }

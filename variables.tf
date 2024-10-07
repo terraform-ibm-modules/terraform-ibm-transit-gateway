@@ -49,3 +49,35 @@ variable "delete_timeout" {
   description = "Deleting timeout value of the ibm_tg_gateway"
   default     = "45m"
 }
+
+variable "default_prefix_filter" {
+  type        = string
+  description = "Create prefix filters to permit or deny specific routes on specific connections. By default accepts all prefixes after entries in the prefix filter list are processed. Deny prefixes denies all prefixes after entries in the prefix filter list are processed."
+  validation {
+    condition     = contains(["permit", "deny"], var.default_prefix_filter)
+    error_message = "Valid values to set default prefix filter is `permit` or `deny`"
+  }
+  default = "permit"
+}
+
+
+variable "add_prefix_filters" {
+  type = list(object({
+    action = string
+    prefix = string
+    le     = number
+    ge     = number
+  }))
+
+  validation {
+    condition = alltrue([
+      for filter in var.add_prefix_filters :
+      filter.le >= 0 && filter.le <= 32 && filter.ge >= 0 && filter.ge <= 32
+    ])
+    error_message = "Both 'le' and 'ge' must be between 0 and 32."
+  }
+
+  description = "Add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed."
+
+  default = []
+}
