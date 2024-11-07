@@ -72,5 +72,13 @@ module "tg_gateway_connection" {
       ge     = 24
     }
   ]
+  (module.vpc_2.vpc_crn) =[
+    {
+      action = "deny"
+      prefix = "10.20.10.0/24"
+      le     = 24
+      ge     = 24
+    }
+  ]
   }
 }
