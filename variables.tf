@@ -35,7 +35,7 @@ variable "resource_tags" {
 }
 
 variable "vpc_connections" {
-  type        = list(string)
+  type        = list(string) # => should be map 
   description = "The list of vpc instance resource_crn to add network connections for."
 }
 
@@ -61,23 +61,34 @@ variable "default_prefix_filter" {
 }
 
 
+# variable "add_prefix_filters" {
+#   type = list(object({
+#     action = string
+#     prefix = string
+#     le     = number
+#     ge     = number
+#   }))
+
+#   validation {
+#     condition = alltrue([
+#       for filter in var.add_prefix_filters :
+#       filter.le >= 0 && filter.le <= 32 && filter.ge >= 0 && filter.ge <= 32
+#     ])
+#     error_message = "Both 'le' and 'ge' must be between 0 and 32."
+#   }
+
+#   description = "Add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed."
+
+#   default = []
+# }
+
 variable "add_prefix_filters" {
-  type = list(object({
-    action = string
-    prefix = string
-    le     = number
-    ge     = number
-  }))
-
-  validation {
-    condition = alltrue([
-      for filter in var.add_prefix_filters :
-      filter.le >= 0 && filter.le <= 32 && filter.ge >= 0 && filter.ge <= 32
-    ])
-    error_message = "Both 'le' and 'ge' must be between 0 and 32."
-  }
-
-  description = "Add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed."
-
-  default = []
+  description = "Map of VPC CRN to optional prefix configuration"
+  type = map(list(object({
+    action = optional(string)
+    prefix = optional(string)
+    le     = optional(number)
+    ge     = optional(number)
+  })))
+  default = {}
 }

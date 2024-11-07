@@ -20,5 +20,5 @@ output "classic_conn_ids" {
 
 output "filter_ids" {
   description = "Prefix filter IDs"
-  value       = ibm_tg_connection_prefix_filter.add_prefix_filter[*].filter_id
+  value       = ibm_tg_connection_prefix_filter.add_prefix_filter
 }

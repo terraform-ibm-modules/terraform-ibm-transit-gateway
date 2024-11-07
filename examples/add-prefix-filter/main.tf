@@ -57,7 +57,8 @@ module "tg_gateway_connection" {
   resource_group_id         = module.resource_group.resource_group_id
   vpc_connections           = [module.vpc_1.vpc_crn, module.vpc_2.vpc_crn]
   classic_connections_count = 0
-  add_prefix_filters = [
+  add_prefix_filters = {
+    (module.vpc_1.vpc_crn) =[
     {
       action = "permit"
       prefix = "10.10.10.0/24"
@@ -71,4 +72,5 @@ module "tg_gateway_connection" {
       ge     = 24
     }
   ]
+  }
 }
