@@ -16,7 +16,7 @@ output "conn_vpc_id" {
   value = module.tg_gateway_connection.tg_conn_vpc_connections
 }
 
-output "var_conn" {
+output "var_vpc_conn_crn" {
   value = module.tg_gateway_connection.vpc_conn_list
 }
 

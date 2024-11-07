@@ -84,11 +84,12 @@ variable "default_prefix_filter" {
 
 variable "add_prefix_filters" {
   description = "Map of VPC CRN to optional prefix configuration"
-  type = map(list(object({
-    action = optional(string)
-    prefix = optional(string)
-    le     = optional(number)
-    ge     = optional(number)
-  })))
-  default = {}
+  type = list(object({
+    action     = string
+    prefix     = string
+    le         = number
+    ge         = number
+    connection = string
+  }))
+  default = []
 }
