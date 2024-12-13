@@ -20,7 +20,7 @@ This module includes the `terraform-ibm-transit-gateway-action` [approval action
     * [terraform-ibm-transit-gateway-action](./modules/terraform-ibm-transit-gateway-action)
 * [Examples](./examples)
     * [ Example transit gateway that connects two VPCs in two accounts](./examples/crossaccounts)
-    * [ Example transit gateway that connects two VPCs](./examples/add-prefix-filter)
+    * [ Example transit gateway that connects two VPCs with prefix filtering](./examples/add-prefix-filter)
     * [ Example transit gateway that connects two VPCs](./examples/two-vpcs)
     * [Example basic transit gateway](./examples/basic)
 * [Contributing](#contributing)
@@ -86,9 +86,9 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_add_prefix_filters"></a> [add\_prefix\_filters](#input\_add\_prefix\_filters) | Add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed. | <pre>list(object({<br>    action = string<br>    prefix = string<br>    le     = number<br>    ge     = number<br>  }))</pre> | `[]` | no |
+| <a name="input_add_prefix_filters"></a> [add\_prefix\_filters](#input\_add\_prefix\_filters) | Map of VPC CRN to optionally add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed. See https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui | <pre>list(object({<br/>    action     = string<br/>    prefix     = string<br/>    le         = optional(number)<br/>    ge         = optional(number)<br/>    before     = optional(string)<br/>    connection = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_classic_connections_count"></a> [classic\_connections\_count](#input\_classic\_connections\_count) | Number of classic connections to add. | `number` | n/a | yes |
-| <a name="input_default_prefix_filter"></a> [default\_prefix\_filter](#input\_default\_prefix\_filter) | Create prefix filters to permit or deny specific routes on specific connections. By default accepts all prefixes after entries in the prefix filter list are processed. Deny prefixes denies all prefixes after entries in the prefix filter list are processed. | `string` | `"permit"` | no |
+| <a name="input_default_prefix_filter"></a> [default\_prefix\_filter](#input\_default\_prefix\_filter) | Adjust the default filter. By default accepts all prefixes after entries in the prefix filter list are processed. Deny prefixes denies all prefixes after entries in the prefix filter list are processed. See https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui | `string` | `"permit"` | no |
 | <a name="input_delete_timeout"></a> [delete\_timeout](#input\_delete\_timeout) | Deleting timeout value of the ibm\_tg\_gateway | `string` | `"45m"` | no |
 | <a name="input_existing_transit_gateway_name"></a> [existing\_transit\_gateway\_name](#input\_existing\_transit\_gateway\_name) | Name of an existing transit gateway to connect VPCs. If null a new Transit Gateway will be created (transit\_gateway\_name and region required) | `string` | `null` | no |
 | <a name="input_global_routing"></a> [global\_routing](#input\_global\_routing) | Gateways with global routing (true) to connect to the networks outside their associated region | `bool` | `false` | no |

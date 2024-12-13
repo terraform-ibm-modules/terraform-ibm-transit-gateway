@@ -35,7 +35,7 @@ variable "resource_tags" {
 }
 
 variable "vpc_connections" {
-  type        = list(string) # => should be map 
+  type        = list(string)
   description = "The list of vpc instance resource_crn to add network connections for."
 }
 
@@ -52,7 +52,7 @@ variable "delete_timeout" {
 
 variable "default_prefix_filter" {
   type        = string
-  description = "Create prefix filters to permit or deny specific routes on specific connections. By default accepts all prefixes after entries in the prefix filter list are processed. Deny prefixes denies all prefixes after entries in the prefix filter list are processed."
+  description = "Adjust the default filter. By default accepts all prefixes after entries in the prefix filter list are processed. Deny prefixes denies all prefixes after entries in the prefix filter list are processed. See https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui"
   validation {
     condition     = contains(["permit", "deny"], var.default_prefix_filter)
     error_message = "Valid values to set default prefix filter is `permit` or `deny`"
@@ -60,36 +60,22 @@ variable "default_prefix_filter" {
   default = "permit"
 }
 
-
-# variable "add_prefix_filters" {
-#   type = list(object({
-#     action = string
-#     prefix = string
-#     le     = number
-#     ge     = number
-#   }))
-
-#   validation {
-#     condition = alltrue([
-#       for filter in var.add_prefix_filters :
-#       filter.le >= 0 && filter.le <= 32 && filter.ge >= 0 && filter.ge <= 32
-#     ])
-#     error_message = "Both 'le' and 'ge' must be between 0 and 32."
-#   }
-
-#   description = "Add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed."
-
-#   default = []
-# }
-
 variable "add_prefix_filters" {
-  description = "Map of VPC CRN to optional prefix configuration"
+  description = "Map of VPC CRN to optionally add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed. See https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui"
   type = list(object({
     action     = string
     prefix     = string
-    le         = number
-    ge         = number
+    le         = optional(number)
+    ge         = optional(number)
+    before     = optional(string)
     connection = string
   }))
+  validation {
+    condition = alltrue([
+      for filter in var.add_prefix_filters :
+      filter.le >= 0 && filter.le <= 32 && filter.ge >= 0 && filter.ge <= 32
+    ])
+    error_message = "Both 'le' and 'ge' must be between 0 and 32."
+  }
   default = []
 }

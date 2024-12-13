@@ -18,7 +18,7 @@ output "classic_conn_ids" {
   value       = { for k, v in ibm_tg_connection.classic_connections : v.network_id => v.connection_id }
 }
 
-# output "filter_ids" {
-#   description = "Prefix filter IDs"
-#   value       = ibm_tg_connection_prefix_filter.add_prefix_filter
-# }
+output "filter_ids" {
+  description = "Prefix filter IDs"
+  value       = ibm_tg_connection_prefix_filter.add_prefix_filter[*].filter_id
+}
