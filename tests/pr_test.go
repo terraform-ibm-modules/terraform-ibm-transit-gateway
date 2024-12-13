@@ -82,7 +82,7 @@ func setupOptions2VpcsExample(t *testing.T, prefix string) *testhelper.TestOptio
 }
 
 func setupOptions2VpcsPrefixFilterExample(t *testing.T, prefix string) *testhelper.TestOptions {
-	const TwoVpcsExampleTerraformDir = "examples/add-prefix-filter"
+	const PrefixExampleTerraformDir = "examples/add-prefix-filter"
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:          t,
@@ -90,7 +90,7 @@ func setupOptions2VpcsPrefixFilterExample(t *testing.T, prefix string) *testhelp
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc, // use pointer to shared info svc to keep track of region selections
 		DefaultRegion:    "us-south",
-		TerraformDir:     TwoVpcsExampleTerraformDir,
+		TerraformDir:     PrefixExampleTerraformDir,
 	})
 
 	terraformVars := map[string]interface{}{
