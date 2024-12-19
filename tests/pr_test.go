@@ -95,6 +95,7 @@ func setupOptions2VpcsPrefixFilterExample(t *testing.T, prefix string) *testhelp
 			List: []string{
 				// to skip update error due to updated in-place for ibm_tg_connection_prefix_filter, tracking provider issue https://github.com/IBM-Cloud/terraform-provider-ibm/issues/5885
 				"module.tg_gateway_connection.ibm_tg_connection_prefix_filter.add_prefix_filter[0]",
+				"module.tg_gateway_connection.ibm_tg_connection_prefix_filter.add_prefix_filter[1]",
 			},
 		},
 	})
