@@ -49,3 +49,40 @@ variable "delete_timeout" {
   description = "Deleting timeout value of the ibm_tg_gateway"
   default     = "45m"
 }
+
+variable "default_prefix_filter" {
+  type        = string
+  description = "Adjust the default filter. By default accepts all prefixes after entries in the prefix filter list are processed. Deny prefixes denies all prefixes after entries in the prefix filter list are processed. See https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui"
+  validation {
+    condition     = contains(["permit", "deny"], var.default_prefix_filter)
+    error_message = "Valid values to set default prefix filter is `permit` or `deny`"
+  }
+  default = "permit"
+}
+
+variable "add_prefix_filters" {
+  description = "Map of VPC CRN to optionally add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed. See https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui"
+  type = list(object({
+    action     = string
+    prefix     = string
+    le         = optional(number)
+    ge         = optional(number)
+    before     = optional(string)
+    connection = string
+  }))
+  validation {
+    condition = alltrue([
+      for filter in var.add_prefix_filters :
+      filter.le >= 0 && filter.le <= 32 && filter.ge >= 0 && filter.ge <= 32
+    ])
+    error_message = "Both 'le' and 'ge' must be between 0 and 32."
+  }
+  validation {
+    condition = alltrue([
+      for filter in var.add_prefix_filters :
+      filter.action == "permit" || filter.action == "deny"
+    ])
+    error_message = "Valid values for 'action' are 'permit' or 'deny'."
+  }
+  default = []
+}
