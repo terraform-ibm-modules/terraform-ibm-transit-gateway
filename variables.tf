@@ -52,7 +52,7 @@ variable "delete_timeout" {
 
 variable "default_prefix_filter" {
   type        = string
-  description = "Adjust the default filter. By default accepts all prefixes after entries in the prefix filter list are processed. Deny prefixes denies all prefixes after entries in the prefix filter list are processed. See https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui"
+  description = "Customise the default filter setting. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. Default to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
   validation {
     condition     = contains(["permit", "deny"], var.default_prefix_filter)
     error_message = "Valid values to set default prefix filter is `permit` or `deny`"
