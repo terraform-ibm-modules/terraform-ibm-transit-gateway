@@ -77,5 +77,12 @@ variable "add_prefix_filters" {
     ])
     error_message = "Both 'le' and 'ge' must be between 0 and 32."
   }
+  validation {
+    condition = alltrue([
+      for filter in var.add_prefix_filters :
+      filter.action == "permit" || filter.action == "deny"
+    ])
+    error_message = "Valid values for 'action' are 'permit' or 'deny'."
+  }
   default = []
 }

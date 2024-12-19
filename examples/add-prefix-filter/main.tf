@@ -45,7 +45,7 @@ module "vpc_2" {
 }
 
 ##############################################################################
-# Transit Gateway connects the 2 VPCs
+# Transit Gateway connects the 2 VPCs with prefix filters
 ##############################################################################
 
 module "tg_gateway_connection" {

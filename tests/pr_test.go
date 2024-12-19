@@ -91,6 +91,12 @@ func setupOptions2VpcsPrefixFilterExample(t *testing.T, prefix string) *testhelp
 		CloudInfoService: sharedInfoSvc, // use pointer to shared info svc to keep track of region selections
 		DefaultRegion:    "us-south",
 		TerraformDir:     PrefixExampleTerraformDir,
+		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
+			List: []string{
+				// to skip update error due to updated in-place for ibm_tg_connection_prefix_filter, tracking provider issue https://github.com/IBM-Cloud/terraform-provider-ibm/issues/5885
+				"module.tg_gateway_connection.ibm_tg_connection_prefix_filter.add_prefix_filter[0]",
+			},
+		},
 	})
 
 	terraformVars := map[string]interface{}{
