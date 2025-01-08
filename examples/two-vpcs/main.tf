@@ -55,6 +55,13 @@ module "tg_gateway_connection" {
   global_routing            = false
   resource_tags             = var.resource_tags
   resource_group_id         = module.resource_group.resource_group_id
-  vpc_connections           = [module.vpc_1.vpc_crn, module.vpc_2.vpc_crn]
   classic_connections_count = 0
+  vpc_connections = [
+    {
+      vpc_crn = module.vpc_1.vpc_crn
+    },
+    {
+      vpc_crn = module.vpc_2.vpc_crn
+    }
+  ]
 }

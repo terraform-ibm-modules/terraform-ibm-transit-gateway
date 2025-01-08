@@ -37,12 +37,12 @@ variable "resource_tags" {
 variable "vpc_connections" {
   type = list(object({
     vpc_crn               = string
-    default_prefix_filter = string
+    default_prefix_filter = optional(string)
   }))
   description = "The list of VPC instance connections with their associated default prefix filter. Customise the default filter setting for each VPC connections to `permit` or `deny` specifiv IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
   validation {
-    condition     = alltrue([for default_filter in var.vpc_connections : default_filter.default_prefix_filter == "permit" || default_filter.default_prefix_filter == "deny"])
-    error_message = "Valid values to set default prefix filter is `permit` or `deny`"
+    condition     = alltrue([for default_filter in var.vpc_connections : default_filter.default_prefix_filter == "permit" || default_filter.default_prefix_filter == "deny" || default_filter.default_prefix_filter == null])
+    error_message = "Valid values to set default prefix filter is `permit` or `deny`. By default it is set to `permit`"
   }
 }
 
