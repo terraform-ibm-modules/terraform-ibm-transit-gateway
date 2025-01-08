@@ -55,8 +55,17 @@ module "tg_gateway_connection" {
   global_routing            = false
   resource_tags             = var.resource_tags
   resource_group_id         = module.resource_group.resource_group_id
-  vpc_connections           = [module.vpc_1.vpc_crn, module.vpc_2.vpc_crn]
   classic_connections_count = 0
+  vpc_connections = [
+    {
+      vpc_crn               = module.vpc_1.vpc_crn
+      default_prefix_filter = "permit"
+    },
+    {
+      vpc_crn               = module.vpc_2.vpc_crn
+      default_prefix_filter = "deny"
+    }
+  ]
   add_prefix_filters = [
     {
       action     = "permit"
@@ -73,7 +82,7 @@ module "tg_gateway_connection" {
       connection = module.vpc_1.vpc_crn
     },
     {
-      action     = "deny"
+      action     = "permit"
       prefix     = "10.20.10.0/24"
       le         = 24
       ge         = 24

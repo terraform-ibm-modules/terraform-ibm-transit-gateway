@@ -35,8 +35,15 @@ variable "resource_tags" {
 }
 
 variable "vpc_connections" {
-  type        = list(string)
-  description = "The list of vpc instance resource_crn to add network connections for."
+  type = list(object({
+    vpc_crn               = string
+    default_prefix_filter = string
+  }))
+  description = "The list of VPC instance connections with their associated default prefix filter. Customise the default filter setting for each VPC connections to `permit` or `deny` specifiv IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
+  validation {
+    condition     = alltrue([for default_filter in var.vpc_connections : default_filter.default_prefix_filter == "permit" || default_filter.default_prefix_filter == "deny"])
+    error_message = "Valid values to set default prefix filter is `permit` or `deny`"
+  }
 }
 
 variable "classic_connections_count" {
@@ -48,16 +55,6 @@ variable "delete_timeout" {
   type        = string
   description = "Deleting timeout value of the ibm_tg_gateway"
   default     = "45m"
-}
-
-variable "default_prefix_filter" {
-  type        = string
-  description = "Customise the default filter setting. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. Default to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
-  validation {
-    condition     = contains(["permit", "deny"], var.default_prefix_filter)
-    error_message = "Valid values to set default prefix filter is `permit` or `deny`"
-  }
-  default = "permit"
 }
 
 variable "add_prefix_filters" {

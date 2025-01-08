@@ -32,8 +32,11 @@ variable "global_routing" {
 }
 
 variable "vpc_connections" {
-  type        = list(string)
-  description = "The list of vpc instance resource_crn to add network connections for."
+  type = list(object({
+    vpc_crn               = string
+    default_prefix_filter = string
+  }))
+  description = "The list of VPC instance connections with their associated default prefix filter. Customise the default filter setting for each VPC connections to `permit` or `deny` specifiv IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
 }
 
 variable "classic_connections_count" {

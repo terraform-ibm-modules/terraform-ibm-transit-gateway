@@ -25,8 +25,8 @@ resource "ibm_tg_connection" "vpc_connections" {
   gateway               = local.transit_gateway_id
   network_type          = "vpc"
   name                  = "vpc_conn_inst${count.index + 1}"
-  network_id            = var.vpc_connections[count.index]
-  default_prefix_filter = var.default_prefix_filter
+  network_id            = var.vpc_connections[count.index].vpc_crn
+  default_prefix_filter = var.vpc_connections[count.index].default_prefix_filter
 }
 locals {
   filter_list = flatten([
@@ -39,11 +39,10 @@ locals {
   ])
 }
 resource "ibm_tg_connection" "classic_connections" {
-  count                 = var.classic_connections_count
-  gateway               = local.transit_gateway_id
-  network_type          = "classic"
-  name                  = "classic_conn_inst${count.index}"
-  default_prefix_filter = var.default_prefix_filter
+  count        = var.classic_connections_count
+  gateway      = local.transit_gateway_id
+  network_type = "classic"
+  name         = "classic_conn_inst${count.index}"
 }
 
 resource "ibm_tg_connection_prefix_filter" "add_prefix_filter" {
