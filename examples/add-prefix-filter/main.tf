@@ -16,12 +16,12 @@ module "resource_group" {
 
 module "vpc_1" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "7.19.1"
+  version           = "7.19.0"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
   tags              = var.resource_tags
-  name              = var.vpc1_name
+  name              = "${var.prefix}-vpc1"
   use_public_gateways = {
     zone-1 = false
     zone-2 = false
@@ -31,12 +31,12 @@ module "vpc_1" {
 
 module "vpc_2" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "7.19.1"
+  version           = "7.19.0"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
   tags              = var.resource_tags
-  name              = var.vpc2_name
+  name              = "${var.prefix}-vpc2"
   use_public_gateways = {
     zone-1 = false
     zone-2 = false
@@ -45,7 +45,7 @@ module "vpc_2" {
 }
 
 ##############################################################################
-# Transit Gateway connects the 2 VPCs
+# Transit Gateway connects the 2 VPCs with prefix filters
 ##############################################################################
 
 module "tg_gateway_connection" {
@@ -58,10 +58,35 @@ module "tg_gateway_connection" {
   classic_connections_count = 0
   vpc_connections = [
     {
-      vpc_crn = module.vpc_1.vpc_crn
+      vpc_crn               = module.vpc_1.vpc_crn
+      default_prefix_filter = "permit"
     },
     {
-      vpc_crn = module.vpc_2.vpc_crn
+      vpc_crn               = module.vpc_2.vpc_crn
+      default_prefix_filter = "deny"
+    }
+  ]
+  add_prefix_filters = [
+    {
+      action     = "permit"
+      prefix     = "10.10.10.0/24"
+      le         = 24
+      ge         = 24
+      connection = module.vpc_1.vpc_crn
+    },
+    {
+      action     = "deny"
+      prefix     = "10.20.10.0/24"
+      le         = 24
+      ge         = 24
+      connection = module.vpc_1.vpc_crn
+    },
+    {
+      action     = "permit"
+      prefix     = "10.20.10.0/24"
+      le         = 24
+      ge         = 24
+      connection = module.vpc_2.vpc_crn
     }
   ]
 }

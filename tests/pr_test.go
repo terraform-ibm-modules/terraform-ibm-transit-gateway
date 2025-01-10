@@ -81,6 +81,34 @@ func setupOptions2VpcsExample(t *testing.T, prefix string) *testhelper.TestOptio
 	return options
 }
 
+func setupOptions2VpcsPrefixFilterExample(t *testing.T, prefix string) *testhelper.TestOptions {
+	const PrefixExampleTerraformDir = "examples/add-prefix-filter"
+
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:          t,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
+		CloudInfoService: sharedInfoSvc, // use pointer to shared info svc to keep track of region selections
+		DefaultRegion:    "us-south",
+		TerraformDir:     PrefixExampleTerraformDir,
+		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
+			List: []string{
+				// to skip update error due to updated in-place for ibm_tg_connection_prefix_filter, tracking provider issue https://github.com/IBM-Cloud/terraform-provider-ibm/issues/5885
+				"module.tg_gateway_connection.ibm_tg_connection_prefix_filter.add_prefix_filter[0]",
+				"module.tg_gateway_connection.ibm_tg_connection_prefix_filter.add_prefix_filter[1]",
+			},
+		},
+	})
+
+	terraformVars := map[string]interface{}{
+		"transit_gateway_name": fmt.Sprintf("%s-%s", options.Prefix, "tg"),
+	}
+
+	maps.Copy(options.TerraformVars, terraformVars)
+
+	return options
+}
+
 // func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.TestOptions {
 // 	const TwoVpcsExampleTerraformDir = "examples/crossaccounts"
 
@@ -137,6 +165,16 @@ func TestRun2VpcsExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions2VpcsExample(t, "twovpcs-tg")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRun2VpcsPrefixFilterExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions2VpcsPrefixFilterExample(t, "prefix-tg")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
