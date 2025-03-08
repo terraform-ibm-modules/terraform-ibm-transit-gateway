@@ -16,7 +16,7 @@ module "resource_group" {
 
 module "vpc_1" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "7.20.1"
+  version           = "7.20.2"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
@@ -31,7 +31,7 @@ module "vpc_1" {
 
 module "vpc_2" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "7.20.1"
+  version           = "7.20.2"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
