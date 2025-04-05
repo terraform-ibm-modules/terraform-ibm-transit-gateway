@@ -44,7 +44,7 @@ module "tg_gateway_connection" {
   global_routing            = true
   tags                      = ["tag1", "tag2"]
   resource_group_id         = data.ibm_resource_group.resource_group.id
-  vpc_connections           = ["crn:v1:bluemix:public:is:eu-de:a/7aa6f7b185f2e3170fac9919aa1769ee::vpc:r010-a9fdc623-d702-4381-a116-07546dba1b87","crn:v1:bluemix:public:is:eu-de:a/7aa6f7b185f2e3170fac9919aa1769ee::vpc:r010-4c39039d-e7ef-411d-a191-3cb549dc41a1"]
+  vpc_connections           = [{vpc_crn = "crn1"}, { vpc_crn = "crn2" }] # Replace `crn1` with CRN of first VPC and `crn2`  with CRN of second VPC
   classic_connections_count = false
 }
 ```
