@@ -36,6 +36,7 @@ variable "resource_tags" {
 
 variable "vpc_connections" {
   type = list(object({
+    connection_name       = optional(string, null)
     vpc_crn               = string
     default_prefix_filter = optional(string)
   }))

@@ -21,6 +21,7 @@ This module includes the `terraform-ibm-transit-gateway-action` [approval action
 * [Examples](./examples)
     * [ Example transit gateway that connects two VPCs in two accounts](./examples/crossaccounts)
     * [ Example transit gateway that connects two VPCs with prefix filtering](./examples/add-prefix-filter)
+    * [ Example transit gateway that connects two VPCs](./examples/multiple-connections)
     * [ Example transit gateway that connects two VPCs](./examples/two-vpcs)
     * [Example basic transit gateway](./examples/basic)
 * [Contributing](#contributing)
@@ -95,7 +96,7 @@ No modules.
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | Resource group ID where the transit gateway to be created. | `string` | `null` | no |
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | List of tags | `list(string)` | `null` | no |
 | <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | Name of the transit gateway to create. It can be null if existing\_transit\_gateway\_name is not null | `string` | `null` | no |
-| <a name="input_vpc_connections"></a> [vpc\_connections](#input\_vpc\_connections) | The list of VPC instance connections with their associated default prefix filter. Customise the default filter setting for each VPC connections to `permit` or `deny` specifiv IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details. | <pre>list(object({<br/>    vpc_crn               = string<br/>    default_prefix_filter = optional(string)<br/>  }))</pre> | n/a | yes |
+| <a name="input_vpc_connections"></a> [vpc\_connections](#input\_vpc\_connections) | The list of VPC instance connections with their associated default prefix filter. Customise the default filter setting for each VPC connections to `permit` or `deny` specifiv IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details. | <pre>list(object({<br/>    connection_name       = optional(string, null)<br/>    vpc_crn               = string<br/>    default_prefix_filter = optional(string)<br/>  }))</pre> | n/a | yes |
 
 ### Outputs
 

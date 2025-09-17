@@ -81,6 +81,27 @@ func setupOptions2VpcsExample(t *testing.T, prefix string) *testhelper.TestOptio
 	return options
 }
 
+func setupOptionsMultipleConnectionsExample(t *testing.T, prefix string) *testhelper.TestOptions {
+	const TwoVpcsExampleTerraformDir = "examples/multiple-connections"
+
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:          t,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
+		CloudInfoService: sharedInfoSvc, // use pointer to shared info svc to keep track of region selections
+		DefaultRegion:    "us-south",
+		TerraformDir:     TwoVpcsExampleTerraformDir,
+	})
+
+	terraformVars := map[string]interface{}{
+		"transit_gateway_name": fmt.Sprintf("%s-%s", options.Prefix, "tg"),
+	}
+
+	maps.Copy(options.TerraformVars, terraformVars)
+
+	return options
+}
+
 func setupOptions2VpcsPrefixFilterExample(t *testing.T, prefix string) *testhelper.TestOptions {
 	const PrefixExampleTerraformDir = "examples/add-prefix-filter"
 
@@ -165,6 +186,16 @@ func TestRun2VpcsExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions2VpcsExample(t, "twovpcs-tg")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunMultipleConnectionsExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsMultipleConnectionsExample(t, "multiconns-tg")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
