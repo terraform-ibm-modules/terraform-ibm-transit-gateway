@@ -1,4 +1,4 @@
-#  Example transit gateway that connects two VPCs in two accounts
+# Example transit gateway that connects two VPCs in two accounts
 
 This example creates two VPCs in two accounts. You can also use an existing VPC for the second account. The code provisions a transit gateway in the first account and configures connectivity between the two VPCs with an approval action on the connection.
 
