@@ -24,7 +24,7 @@ resource "ibm_tg_connection" "vpc_connections" {
   count                 = length(var.vpc_connections)
   gateway               = local.transit_gateway_id
   network_type          = "vpc"
-  name                  = "vpc_conn_inst${count.index + 1}"
+  name                  = var.vpc_connections[count.index].connection_name != null ? var.vpc_connections[count.index].connection_name : "vpc_conn_inst${count.index + 1}"
   network_id            = var.vpc_connections[count.index].vpc_crn
   default_prefix_filter = var.vpc_connections[count.index].default_prefix_filter
 }

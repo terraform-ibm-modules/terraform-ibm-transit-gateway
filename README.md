@@ -19,10 +19,11 @@ This module includes the `terraform-ibm-transit-gateway-action` [approval action
 * [Submodules](./modules)
     * [terraform-ibm-transit-gateway-action](./modules/terraform-ibm-transit-gateway-action)
 * [Examples](./examples)
-    * [ Example transit gateway that connects two VPCs in two accounts](./examples/crossaccounts)
-    * [ Example transit gateway that connects two VPCs with prefix filtering](./examples/add-prefix-filter)
-    * [ Example transit gateway that connects two VPCs](./examples/two-vpcs)
     * [Example basic transit gateway](./examples/basic)
+    * [Example transit gateway that connects four VPCs through two sets of connections](./examples/multiple-connections)
+    * [Example transit gateway that connects two VPCs in two accounts](./examples/crossaccounts)
+    * [Example transit gateway that connects two VPCs with prefix filtering](./examples/add-prefix-filter)
+    * [Example transit gateway that connects two VPCs](./examples/two-vpcs)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -49,6 +50,10 @@ module "tg_gateway_connection" {
 }
 ```
 
+#### Connections names limitation in the same account
+
+For the same Transit Gateway instance is not possible to have multiple connections having the same name: if you plan to have multiple instances of the transit-gateway module to handle multiple connections for the same gateway (i.e. crossaccount transit gateway connecting multiple VPCs) you can customise the `connection_name` attribute of the `var.vpc_connections` input parameter elements to avoid clashes in the connections names. More details in the [Example transit gateway that connects four VPCs through two sets of connections](./examples/multiple-connections)
+
 ### Required IAM access policies
 
 You need the following permissions to run this module.
@@ -66,7 +71,7 @@ You need the following permissions to run this module.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.69.0, < 2.0.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.79.0, < 2.0.0 |
 
 ### Modules
 
@@ -95,7 +100,7 @@ No modules.
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | Resource group ID where the transit gateway to be created. | `string` | `null` | no |
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | List of tags | `list(string)` | `null` | no |
 | <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | Name of the transit gateway to create. It can be null if existing\_transit\_gateway\_name is not null | `string` | `null` | no |
-| <a name="input_vpc_connections"></a> [vpc\_connections](#input\_vpc\_connections) | The list of VPC instance connections with their associated default prefix filter. Customise the default filter setting for each VPC connections to `permit` or `deny` specifiv IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details. | <pre>list(object({<br/>    vpc_crn               = string<br/>    default_prefix_filter = optional(string)<br/>  }))</pre> | n/a | yes |
+| <a name="input_vpc_connections"></a> [vpc\_connections](#input\_vpc\_connections) | The list of VPC instance connections with their associated default prefix filter and the optional connection name. Connection name allows to customise the single connection name, if not set "vpc\_conn\_inst{idx}" is used. Customise the default filter setting for each VPC connections to `permit` or `deny` specifiv IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details. | <pre>list(object({<br/>    connection_name       = optional(string, null)<br/>    vpc_crn               = string<br/>    default_prefix_filter = optional(string)<br/>  }))</pre> | n/a | yes |
 
 ### Outputs
 
