@@ -2,11 +2,11 @@ module github.com/terraform-ibm-modules/terraform-ibm-transit-gateway
 
 go 1.24.0
 
-toolchain go1.25.2
+toolchain go1.25.3
 
 require (
 	github.com/stretchr/testify v1.11.1
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.60.12
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.60.14
 )
 
 require (
