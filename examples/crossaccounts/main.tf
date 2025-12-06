@@ -6,7 +6,7 @@
 
 module "resource_group_account_a" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.4.0"
+  version = "1.4.1"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group_account_a == null ? "${var.prefix_account_a}-resource-group" : null
   existing_resource_group_name = var.resource_group_account_a
@@ -39,7 +39,7 @@ module "vpc_a" {
 
 module "resource_group_account_b" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.4.0"
+  version = "1.4.1"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group_account_b == null ? "${var.prefix_account_b}-resource-group" : null
   existing_resource_group_name = var.resource_group_account_b
