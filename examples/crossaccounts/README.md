@@ -4,7 +4,6 @@
 <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-crossaccounts-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/crossaccounts"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom;"></a>
 <!-- END SCHEMATICS DEPLOY HOOK -->
 
-
 This example creates two VPCs in two accounts. You can also use an existing VPC for the second account. The code provisions a transit gateway in the first account and configures connectivity between the two VPCs with an approval action on the connection.
 
 The example implements the following infrastructure:
