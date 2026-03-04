@@ -17,7 +17,7 @@ variable "transit_gw_id" {
 
 variable "action" {
   type        = string
-  description = "Action to peform on the list of cnnection ids. Allowed values are 'approve' or 'reject'"
+  description = "Action to perform on the list of cnnection ids. Allowed values are 'approve' or 'reject'"
   validation {
     condition     = contains(["approve", "reject"], var.action)
     error_message = "Valid values for var: action are (approve, reject)."

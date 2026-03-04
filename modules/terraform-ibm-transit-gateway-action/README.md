@@ -57,7 +57,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_action"></a> [action](#input\_action) | Action to peform on the list of cnnection ids. Allowed values are 'approve' or 'reject' | `string` | n/a | yes |
+| <a name="input_action"></a> [action](#input\_action) | Action to perform on the list of cnnection ids. Allowed values are 'approve' or 'reject' | `string` | n/a | yes |
 | <a name="input_classic_connection_ids"></a> [classic\_connection\_ids](#input\_classic\_connection\_ids) | The list of classic connection IDs to perform the action for the account owner of ibmcloud\_api\_key | `list(string)` | `[]` | no |
 | <a name="input_transit_gw_id"></a> [transit\_gw\_id](#input\_transit\_gw\_id) | ID to the transit gateway where the cross-account connection is created | `string` | n/a | yes |
 | <a name="input_vpc_connection_ids"></a> [vpc\_connection\_ids](#input\_vpc\_connection\_ids) | The list of vpc connection IDs to perform the action for the account owner of ibmcloud\_api\_key | `list(string)` | `[]` | no |
