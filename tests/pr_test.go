@@ -186,7 +186,7 @@ func TestRunBasicExample(t *testing.T) {
 }
 
 func TestRun2VpcsExample(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	options := setupOptions2VpcsExample(t, "twovpcs-tg")
 
@@ -196,7 +196,7 @@ func TestRun2VpcsExample(t *testing.T) {
 }
 
 func TestRunMultipleConnectionsExample(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	options := setupOptionsMultipleConnectionsExample(t, "multiconns-tg")
 
@@ -206,7 +206,7 @@ func TestRunMultipleConnectionsExample(t *testing.T) {
 }
 
 func TestRun2VpcsPrefixFilterExample(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	options := setupOptions2VpcsPrefixFilterExample(t, "prefix-tg")
 
@@ -228,7 +228,7 @@ func TestRun2VpcsPrefixFilterExample(t *testing.T) {
 // }
 
 func TestRunUpgradeExample(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	options := setupOptionsBasicExample(t, "ibm-tgn")
 
