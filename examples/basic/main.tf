@@ -24,4 +24,5 @@ module "tg_gateway_connection" {
   resource_group_id         = module.resource_group.resource_group_id
   vpc_connections           = var.vpc_connections
   classic_connections_count = var.classic_connections_count
+  directlink_connections    = var.directlink_connections
 }

@@ -52,6 +52,27 @@ variable "classic_connections_count" {
   description = "Number of classic connections to add."
 }
 
+variable "directlink_connections" {
+  type = list(object({
+    connection_name       = optional(string, null)
+    directlink_crn        = string
+    default_prefix_filter = optional(string)
+  }))
+  description = "The list of Direct Link connections with their associated default prefix filter and the optional connection name. Connection name allows customization of the connection name; if not set \"dl_conn_inst{idx}\" is used. Customize the default filter setting for each Direct Link connection to `permit` or `deny` specific IP ranges. `permit` allows all prefixes after processing all prefix filters. `deny` blocks all prefixes after processing all prefix filters. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
+  default     = []
+
+  validation {
+    condition = alltrue([
+      for conn in var.directlink_connections :
+      conn.default_prefix_filter == "permit" ||
+      conn.default_prefix_filter == "deny" ||
+      conn.default_prefix_filter == null
+    ])
+
+    error_message = "Valid values for default_prefix_filter are `permit` or `deny`. By default it is set to `permit`."
+  }
+}
+
 variable "delete_timeout" {
   type        = string
   description = "Deleting timeout value of the ibm_tg_gateway"
