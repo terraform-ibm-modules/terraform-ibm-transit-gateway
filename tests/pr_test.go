@@ -42,7 +42,12 @@ func TestMain(m *testing.M) {
 func setupOptionsBasicExample(t *testing.T, prefix string) *testhelper.TestOptions {
 	const basicExampleTerraformDir = "examples/basic"
 	var vpcConnections []string
-	var directLinkConnections []string
+	directLinkConnections := []map[string]interface{}{
+	{
+		"directlink_crn":        permanentResources["directlink_crn"],
+		"default_prefix_filter": "permit",
+	},
+}
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:          t,
