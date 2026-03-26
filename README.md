@@ -16,17 +16,40 @@ This module includes the `terraform-ibm-transit-gateway-action` [approval action
 <!-- Below content is automatically populated via pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
-* [terraform-ibm-transit-gateway](#terraform-ibm-transit-gateway)
-* [Submodules](./modules)
-    * [terraform-ibm-transit-gateway-action](./modules/terraform-ibm-transit-gateway-action)
-* [Examples](./examples)
-:information_source: Ctrl/Cmd+Click or right-click on the Schematics deploy button to open in a new tab
-    * <a href="./examples/add-prefix-filter">Example transit gateway that connects two VPCs with prefix filtering</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-add-prefix-filter-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/add-prefix-filter"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/basic">Example basic transit gateway</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-basic-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/basic"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/crossaccounts">Example transit gateway that connects two VPCs in two accounts</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-crossaccounts-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/crossaccounts"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/multiple-connections">Example transit gateway that connects four VPCs through two sets of connections</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-multiple-connections-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/multiple-connections"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/two-vpcs">Example transit gateway that connects two VPCs</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-two-vpcs-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/two-vpcs"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-* [Contributing](#contributing)
+<ul>
+  <li><a href="#terraform-ibm-transit-gateway">terraform-ibm-transit-gateway</a></li>
+  <li><a href="./modules">Submodules</a>
+    <ul>
+      <li><a href="./modules/terraform-ibm-transit-gateway-action">terraform-ibm-transit-gateway-action</a></li>
+    </ul>
+  </li>
+  <li><a href="./examples">Examples</a>
+    <ul>
+      <li>
+        <a href="./examples/add-prefix-filter">Example transit gateway that connects two VPCs with prefix filtering</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-add-prefix-filter-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/add-prefix-filter"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/basic">Example basic transit gateway</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-basic-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/basic"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/crossaccounts">Example transit gateway that connects two VPCs in two accounts</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-crossaccounts-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/crossaccounts"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/multiple-connections">Example transit gateway that connects four VPCs through two sets of connections</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-multiple-connections-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/multiple-connections"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/two-vpcs">Example transit gateway that connects two VPCs</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-two-vpcs-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/two-vpcs"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+    </ul>
+    ℹ️ Ctrl/Cmd+Click or right-click on the Schematics deploy button to open in a new tab.
+  </li>
+  <li><a href="#contributing">Contributing</a></li>
+</ul>
 <!-- END OVERVIEW HOOK -->
 
 <!-- Match this heading to the name of the root level module (the repo name) -->
