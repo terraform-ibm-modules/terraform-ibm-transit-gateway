@@ -28,21 +28,37 @@ resource "ibm_tg_connection" "vpc_connections" {
   network_id            = var.vpc_connections[count.index].vpc_crn
   default_prefix_filter = var.vpc_connections[count.index].default_prefix_filter
 }
-locals {
-  filter_list = flatten([
-    for conn in ibm_tg_connection.vpc_connections :
-    [
-      for filter in var.add_prefix_filters :
-      merge(filter, { connection_id = conn.connection_id
-      gateway = conn.gateway }) if filter.connection == conn.network_id
-    ]
-  ])
-}
+
 resource "ibm_tg_connection" "classic_connections" {
   count        = var.classic_connections_count
   gateway      = local.transit_gateway_id
   network_type = "classic"
   name         = "classic_conn_inst${count.index}"
+}
+
+resource "ibm_tg_connection" "directlink_connections" {
+  count        = length(var.directlink_connections)
+  gateway      = local.transit_gateway_id
+  network_type = "directlink"
+  name         = var.directlink_connections[count.index].connection_name != null ? var.directlink_connections[count.index].connection_name : "dl_conn_inst${count.index + 1}"
+  network_id   = var.directlink_connections[count.index].directlink_crn
+}
+
+locals {
+  filter_list = flatten([
+    for conn in concat(
+      ibm_tg_connection.vpc_connections,
+      ibm_tg_connection.directlink_connections
+    ) :
+    [
+      for filter in var.add_prefix_filters :
+      merge(filter, {
+        connection_id = conn.connection_id
+        gateway       = conn.gateway
+      })
+      if filter.connection == conn.network_id
+    ]
+  ])
 }
 
 resource "ibm_tg_connection_prefix_filter" "add_prefix_filter" {

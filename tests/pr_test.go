@@ -42,6 +42,12 @@ func TestMain(m *testing.M) {
 func setupOptionsBasicExample(t *testing.T, prefix string) *testhelper.TestOptions {
 	const basicExampleTerraformDir = "examples/basic"
 	var vpcConnections []string
+	directLinkConnections := []map[string]interface{}{
+		{
+			"directlink_crn":        permanentResources["directlink_crn"],
+			"default_prefix_filter": "permit",
+		},
+	}
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:          t,
@@ -55,6 +61,7 @@ func setupOptionsBasicExample(t *testing.T, prefix string) *testhelper.TestOptio
 	terraformVars := map[string]interface{}{
 		"transit_gateway_name":      fmt.Sprintf("%s-%s", options.Prefix, "tg"),
 		"vpc_connections":           vpcConnections,
+		"directlink_connections":    directLinkConnections,
 		"classic_connections_count": 0,
 	}
 

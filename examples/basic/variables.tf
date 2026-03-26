@@ -36,12 +36,20 @@ variable "vpc_connections" {
     vpc_crn               = string
     default_prefix_filter = string
   }))
-  description = "The list of VPC instance connections with their associated default prefix filter. Customise the default filter setting for each VPC connections to `permit` or `deny` specifiv IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
+  description = "The list of VPC instance connections with their associated default prefix filter. Customise the default filter setting for each VPC connections to `permit` or `deny` specific IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
 }
 
 variable "classic_connections_count" {
   type        = number
   description = "Number of classic connections to add."
+}
+
+variable "directlink_connections" {
+  type = list(object({
+    directlink_crn        = string
+    default_prefix_filter = string
+  }))
+  description = "The list of Direct Link connections with their associated default prefix filter. Customise the default filter setting for each Direct Link connection to `permit` or `deny` specific IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
 }
 
 variable "resource_tags" {

@@ -16,17 +16,40 @@ This module includes the `terraform-ibm-transit-gateway-action` [approval action
 <!-- Below content is automatically populated via pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
-* [terraform-ibm-transit-gateway](#terraform-ibm-transit-gateway)
-* [Submodules](./modules)
-    * [terraform-ibm-transit-gateway-action](./modules/terraform-ibm-transit-gateway-action)
-* [Examples](./examples)
-:information_source: Ctrl/Cmd+Click or right-click on the Schematics deploy button to open in a new tab
-    * <a href="./examples/add-prefix-filter">Example transit gateway that connects two VPCs with prefix filtering</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-add-prefix-filter-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/add-prefix-filter"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/basic">Example basic transit gateway</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-basic-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/basic"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/crossaccounts">Example transit gateway that connects two VPCs in two accounts</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-crossaccounts-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/crossaccounts"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/multiple-connections">Example transit gateway that connects four VPCs through two sets of connections</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-multiple-connections-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/multiple-connections"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/two-vpcs">Example transit gateway that connects two VPCs</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-two-vpcs-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/two-vpcs"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-* [Contributing](#contributing)
+<ul>
+  <li><a href="#terraform-ibm-transit-gateway">terraform-ibm-transit-gateway</a></li>
+  <li><a href="./modules">Submodules</a>
+    <ul>
+      <li><a href="./modules/terraform-ibm-transit-gateway-action">terraform-ibm-transit-gateway-action</a></li>
+    </ul>
+  </li>
+  <li><a href="./examples">Examples</a>
+    <ul>
+      <li>
+        <a href="./examples/add-prefix-filter">Example transit gateway that connects two VPCs with prefix filtering</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-add-prefix-filter-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/add-prefix-filter"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/basic">Example basic transit gateway</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-basic-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/basic"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/crossaccounts">Example transit gateway that connects two VPCs in two accounts</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-crossaccounts-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/crossaccounts"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/multiple-connections">Example transit gateway that connects four VPCs through two sets of connections</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-multiple-connections-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/multiple-connections"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/two-vpcs">Example transit gateway that connects two VPCs</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=transit-gateway-two-vpcs-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-transit-gateway/tree/main/examples/two-vpcs"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+    </ul>
+    ℹ️ Ctrl/Cmd+Click or right-click on the Schematics deploy button to open in a new tab.
+  </li>
+  <li><a href="#contributing">Contributing</a></li>
+</ul>
 <!-- END OVERVIEW HOOK -->
 
 <!-- Match this heading to the name of the root level module (the repo name) -->
@@ -84,6 +107,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [ibm_tg_connection.classic_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
+| [ibm_tg_connection.directlink_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_connection.vpc_connections](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_connection_prefix_filter.add_prefix_filter](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection_prefix_filter) | resource |
 | [ibm_tg_gateway.tg_gw_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
@@ -96,6 +120,7 @@ No modules.
 | <a name="input_add_prefix_filters"></a> [add\_prefix\_filters](#input\_add\_prefix\_filters) | Map of VPC CRN to optionally add prefix filter to set an ordered list of filters that determine the routes that transit gateway should accept or deny. Connections are denied or permitted based on the order of the filters passed. See https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui | <pre>list(object({<br/>    action     = string<br/>    prefix     = string<br/>    le         = optional(number)<br/>    ge         = optional(number)<br/>    before     = optional(string)<br/>    connection = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_classic_connections_count"></a> [classic\_connections\_count](#input\_classic\_connections\_count) | Number of classic connections to add. | `number` | n/a | yes |
 | <a name="input_delete_timeout"></a> [delete\_timeout](#input\_delete\_timeout) | Deleting timeout value of the ibm\_tg\_gateway | `string` | `"45m"` | no |
+| <a name="input_directlink_connections"></a> [directlink\_connections](#input\_directlink\_connections) | The list of Direct Link connections with their associated default prefix filter and the optional connection name. Connection name allows customization of the connection name; if not set "dl\_conn\_inst{idx}" is used. Customize the default filter setting for each Direct Link connection to `permit` or `deny` specific IP ranges. `permit` allows all prefixes after processing all prefix filters. `deny` blocks all prefixes after processing all prefix filters. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details. | <pre>list(object({<br/>    connection_name       = optional(string, null)<br/>    directlink_crn        = string<br/>    default_prefix_filter = optional(string)<br/>  }))</pre> | `[]` | no |
 | <a name="input_existing_transit_gateway_name"></a> [existing\_transit\_gateway\_name](#input\_existing\_transit\_gateway\_name) | Name of an existing transit gateway to connect VPCs. If null a new Transit Gateway will be created (transit\_gateway\_name and region required) | `string` | `null` | no |
 | <a name="input_global_routing"></a> [global\_routing](#input\_global\_routing) | Gateways with global routing (true) to connect to the networks outside their associated region | `bool` | `false` | no |
 | <a name="input_region"></a> [region](#input\_region) | The IBM Cloud region where all resources are provisioned. It can be null if existing\_transit\_gateway\_name is not null | `string` | `null` | no |
