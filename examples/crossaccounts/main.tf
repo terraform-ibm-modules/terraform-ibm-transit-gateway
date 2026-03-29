@@ -94,8 +94,17 @@ module "tg_gateway_connection" {
   ]
   source                        = "../.."
   existing_transit_gateway_name = ibm_tg_gateway.tg_gw_instance.name
-  vpc_connections               = [module.vpc_a.vpc_crn, local.vpc_b_crn]
-  classic_connections_count     = 0
+  vpc_connections = [
+    {
+      vpc_crn         = module.vpc_a.vpc_crn
+      connection_name = "conn_1"
+    },
+    {
+      vpc_crn         = local.vpc_b_crn
+      connection_name = "conn_2"
+    }
+  ]
+  classic_connections_count = 0
   providers = {
     ibm = ibm.accountA
   }

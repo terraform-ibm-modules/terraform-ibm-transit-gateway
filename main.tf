@@ -21,12 +21,15 @@ resource "ibm_tg_gateway" "tg_gw_instance" {
 }
 
 resource "ibm_tg_connection" "vpc_connections" {
-  count                 = length(var.vpc_connections)
+  for_each = {
+    for conn in var.vpc_connections :
+    conn.connection_name => conn
+  }
   gateway               = local.transit_gateway_id
   network_type          = "vpc"
-  name                  = var.vpc_connections[count.index].connection_name != null ? var.vpc_connections[count.index].connection_name : "vpc_conn_inst${count.index + 1}"
-  network_id            = var.vpc_connections[count.index].vpc_crn
-  default_prefix_filter = var.vpc_connections[count.index].default_prefix_filter
+  name                  = each.value.connection_name
+  network_id            = each.value.vpc_crn
+  default_prefix_filter = each.value.default_prefix_filter
 }
 
 resource "ibm_tg_connection" "classic_connections" {
@@ -37,18 +40,22 @@ resource "ibm_tg_connection" "classic_connections" {
 }
 
 resource "ibm_tg_connection" "directlink_connections" {
-  count        = length(var.directlink_connections)
-  gateway      = local.transit_gateway_id
-  network_type = "directlink"
-  name         = var.directlink_connections[count.index].connection_name != null ? var.directlink_connections[count.index].connection_name : "dl_conn_inst${count.index + 1}"
-  network_id   = var.directlink_connections[count.index].directlink_crn
+  for_each = {
+    for conn in var.directlink_connections :
+    conn.connection_name => conn
+  }
+  gateway               = local.transit_gateway_id
+  network_type          = "directlink"
+  name                  = each.value.connection_name
+  network_id            = each.value.directlink_crn
+  default_prefix_filter = each.value.default_prefix_filter
 }
 
 locals {
   filter_list = flatten([
     for conn in concat(
-      ibm_tg_connection.vpc_connections,
-      ibm_tg_connection.directlink_connections
+      values(ibm_tg_connection.vpc_connections),
+      values(ibm_tg_connection.directlink_connections)
     ) :
     [
       for filter in var.add_prefix_filters :
