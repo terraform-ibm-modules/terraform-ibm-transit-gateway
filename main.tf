@@ -22,8 +22,8 @@ resource "ibm_tg_gateway" "tg_gw_instance" {
 
 resource "ibm_tg_connection" "vpc_connections" {
   for_each = {
-    for conn in var.vpc_connections :
-    conn.connection_name => conn
+    for connection in var.vpc_connections :
+    connection.connection_name => connection
   }
   gateway               = local.transit_gateway_id
   network_type          = "vpc"
@@ -41,8 +41,8 @@ resource "ibm_tg_connection" "classic_connections" {
 
 resource "ibm_tg_connection" "directlink_connections" {
   for_each = {
-    for conn in var.directlink_connections :
-    conn.connection_name => conn
+    for connection in var.directlink_connections :
+    connection.connection_name => connection
   }
   gateway               = local.transit_gateway_id
   network_type          = "directlink"
@@ -53,17 +53,17 @@ resource "ibm_tg_connection" "directlink_connections" {
 
 locals {
   filter_list = flatten([
-    for conn in concat(
+    for connection in concat(
       values(ibm_tg_connection.vpc_connections),
       values(ibm_tg_connection.directlink_connections)
     ) :
     [
       for filter in var.add_prefix_filters :
       merge(filter, {
-        connection_id = conn.connection_id
-        gateway       = conn.gateway
+        connection_id = connection.connection_id
+        gateway       = connection.gateway
       })
-      if filter.connection == conn.network_id
+      if filter.connection == connection.network_id
     ]
   ])
 }
