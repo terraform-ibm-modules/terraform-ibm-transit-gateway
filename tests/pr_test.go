@@ -46,6 +46,7 @@ func setupOptionsBasicExample(t *testing.T, prefix string) *testhelper.TestOptio
 		{
 			"directlink_crn":        permanentResources["directlink_crn"],
 			"default_prefix_filter": "permit",
+			"connection_name":       "test_conn",
 		},
 	}
 

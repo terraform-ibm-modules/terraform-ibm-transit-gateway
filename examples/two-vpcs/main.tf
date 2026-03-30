@@ -58,10 +58,12 @@ module "tg_gateway_connection" {
   classic_connections_count = 0
   vpc_connections = [
     {
-      vpc_crn = module.vpc_1.vpc_crn
+      vpc_crn         = module.vpc_1.vpc_crn
+      connection_name = "conn_1"
     },
     {
-      vpc_crn = module.vpc_2.vpc_crn
+      vpc_crn         = module.vpc_2.vpc_crn
+      connection_name = "conn_2"
     }
   ]
 }

@@ -33,6 +33,7 @@ variable "global_routing" {
 
 variable "vpc_connections" {
   type = list(object({
+    connection_name       = string
     vpc_crn               = string
     default_prefix_filter = string
   }))
@@ -46,6 +47,7 @@ variable "classic_connections_count" {
 
 variable "directlink_connections" {
   type = list(object({
+    connection_name       = string
     directlink_crn        = string
     default_prefix_filter = string
   }))

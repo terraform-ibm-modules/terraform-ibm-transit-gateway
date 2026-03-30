@@ -60,10 +60,12 @@ module "tg_gateway_connection" {
     {
       vpc_crn               = module.vpc_1.vpc_crn
       default_prefix_filter = "permit"
+      connection_name       = "conn_1"
     },
     {
       vpc_crn               = module.vpc_2.vpc_crn
       default_prefix_filter = "deny"
+      connection_name       = "conn_2"
     }
   ]
   add_prefix_filters = [
