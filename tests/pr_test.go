@@ -204,7 +204,7 @@ func TestRun2VpcsExample(t *testing.T) {
 }
 
 func TestRunMultipleConnectionsExample(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()  // Disabled due to rate limiting set by transit gateway team
 
 	options := setupOptionsMultipleConnectionsExample(t, "multiconns-tg")
 
