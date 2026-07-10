@@ -20,7 +20,7 @@ module "vpc_1" {
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "${var.prefix}-vpc1"
   use_public_gateways = {
     zone-1 = false
@@ -35,7 +35,7 @@ module "vpc_2" {
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "${var.prefix}-vpc2"
   use_public_gateways = {
     zone-1 = false

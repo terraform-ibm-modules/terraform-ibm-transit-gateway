@@ -19,7 +19,7 @@ module "vpc_a" {
   resource_group_id = module.resource_group_account_a.resource_group_id
   region            = var.region_account_a
   prefix            = var.prefix_account_a
-  tags              = var.resource_tags_account_a
+  resource_tags     = var.resource_tags_account_a
   name              = var.vpc_name_account_a
   use_public_gateways = {
     zone-1 = false
@@ -59,7 +59,7 @@ module "vpc_b" {
   resource_group_id = module.resource_group_account_b.resource_group_id
   region            = var.region_account_b
   prefix            = var.prefix_account_b
-  tags              = var.resource_tags_account_b
+  resource_tags     = var.resource_tags_account_b
   name              = var.vpc_name_account_b
   use_public_gateways = {
     zone-1 = false

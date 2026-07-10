@@ -20,7 +20,7 @@ module "vpc_1" {
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "vpc1"
   use_public_gateways = {
     zone-1 = false
@@ -35,7 +35,7 @@ module "vpc_2" {
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "vpc2"
   use_public_gateways = {
     zone-1 = false
@@ -50,7 +50,7 @@ module "vpc_3" {
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "vpc3"
   use_public_gateways = {
     zone-1 = false
@@ -65,7 +65,7 @@ module "vpc_4" {
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "vpc4"
   use_public_gateways = {
     zone-1 = false
