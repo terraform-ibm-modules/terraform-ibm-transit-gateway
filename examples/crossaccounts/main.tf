@@ -15,11 +15,11 @@ module "resource_group_account_a" {
 
 module "vpc_a" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.1.0"
+  version           = "9.2.1"
   resource_group_id = module.resource_group_account_a.resource_group_id
   region            = var.region_account_a
   prefix            = var.prefix_account_a
-  tags              = var.resource_tags_account_a
+  resource_tags     = var.resource_tags_account_a
   name              = var.vpc_name_account_a
   use_public_gateways = {
     zone-1 = false
@@ -55,11 +55,11 @@ module "vpc_b" {
   # if existing_vpc_crn_account_b is set using the existing VPC instead of creating a new one
   count             = var.existing_vpc_crn_account_b != null ? 0 : 1
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.1.0"
+  version           = "9.2.1"
   resource_group_id = module.resource_group_account_b.resource_group_id
   region            = var.region_account_b
   prefix            = var.prefix_account_b
-  tags              = var.resource_tags_account_b
+  resource_tags     = var.resource_tags_account_b
   name              = var.vpc_name_account_b
   use_public_gateways = {
     zone-1 = false

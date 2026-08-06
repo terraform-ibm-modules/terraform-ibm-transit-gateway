@@ -16,11 +16,11 @@ module "resource_group" {
 
 module "vpc_1" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.1.0"
+  version           = "9.2.1"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "vpc1"
   use_public_gateways = {
     zone-1 = false
@@ -31,11 +31,11 @@ module "vpc_1" {
 
 module "vpc_2" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.1.0"
+  version           = "9.2.1"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "vpc2"
   use_public_gateways = {
     zone-1 = false
@@ -46,11 +46,11 @@ module "vpc_2" {
 
 module "vpc_3" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.1.0"
+  version           = "9.2.1"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "vpc3"
   use_public_gateways = {
     zone-1 = false
@@ -61,11 +61,11 @@ module "vpc_3" {
 
 module "vpc_4" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.1.0"
+  version           = "9.2.1"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = "vpc4"
   use_public_gateways = {
     zone-1 = false

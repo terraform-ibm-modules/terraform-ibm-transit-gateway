@@ -16,11 +16,11 @@ module "resource_group" {
 
 module "vpc_1" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.1.0"
+  version           = "9.2.1"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = var.vpc1_name
   use_public_gateways = {
     zone-1 = false
@@ -31,11 +31,11 @@ module "vpc_1" {
 
 module "vpc_2" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.1.0"
+  version           = "9.2.1"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   prefix            = var.prefix
-  tags              = var.resource_tags
+  resource_tags     = var.resource_tags
   name              = var.vpc2_name
   use_public_gateways = {
     zone-1 = false
