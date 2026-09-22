@@ -68,7 +68,7 @@ module "tg_gateway_connection" {
   transit_gateway_name      = "transit gateway name"
   location                  = "eu-de"
   global_routing            = true
-  tags                      = ["tag1", "tag2"]
+  resource_tags             = ["tag1", "tag2"]
   resource_group_id         = data.ibm_resource_group.resource_group.id
   vpc_connections           = [{vpc_crn = "crn1"}, { vpc_crn = "crn2" }] # Replace `crn1` with CRN of first VPC and `crn2`  with CRN of second VPC
   classic_connections_count = false
