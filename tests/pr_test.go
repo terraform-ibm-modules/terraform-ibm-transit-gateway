@@ -154,7 +154,7 @@ func TestRun2VpcsPrefixFilterExample(t *testing.T) {
 func TestRunUpgradeExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsBasicExample(t, "ibm-tgn")
+	options := setupOptions2VpcsPrefixFilterExample(t, "prupg-tg")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
