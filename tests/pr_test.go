@@ -41,7 +41,7 @@ func TestMain(m *testing.M) {
 
 func setupOptionsBasicExample(t *testing.T, prefix string) *testhelper.TestOptions {
 	const basicExampleTerraformDir = "examples/basic"
-	var vpcConnections []string
+	vpcConnections := []map[string]interface{}{}
 	directLinkConnections := []map[string]interface{}{
 		{
 			"directlink_crn":        permanentResources["directlink_crn"],
@@ -154,7 +154,7 @@ func TestRun2VpcsPrefixFilterExample(t *testing.T) {
 func TestRunUpgradeExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsBasicExample(t, "ibm-tgn")
+	options := setupOptions2VpcsPrefixFilterExample(t, "prupg-tg")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {

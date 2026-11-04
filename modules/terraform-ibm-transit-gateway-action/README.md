@@ -38,7 +38,7 @@ module "tg_gateway_connection_crossaccounts_approve" {
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.79.0, < 3.0.0 |
 
@@ -49,14 +49,14 @@ No modules.
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ibm_tg_connection_action.classic_tg_cross_connection_approval](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection_action) | resource |
 | [ibm_tg_connection_action.vpc_tg_cross_connection_approval](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection_action) | resource |
 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_action"></a> [action](#input\_action) | Action to perform on the list of cnnection ids. Allowed values are 'approve' or 'reject' | `string` | n/a | yes |
 | <a name="input_classic_connection_ids"></a> [classic\_connection\_ids](#input\_classic\_connection\_ids) | The list of classic connection IDs to perform the action for the account owner of ibmcloud\_api\_key | `list(string)` | `[]` | no |
 | <a name="input_transit_gw_id"></a> [transit\_gw\_id](#input\_transit\_gw\_id) | ID to the transit gateway where the cross-account connection is created | `string` | n/a | yes |
@@ -65,7 +65,7 @@ No modules.
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_classic_tg_crossaacount_approvals"></a> [classic\_tg\_crossaacount\_approvals](#output\_classic\_tg\_crossaacount\_approvals) | Result for classic crossaccount actions |
 | <a name="output_vpc_tg_crossaacount_approvals"></a> [vpc\_tg\_crossaacount\_approvals](#output\_vpc\_tg\_crossaacount\_approvals) | Result for vpc crossaccount actions |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
