@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -145,6 +146,48 @@ func TestRun2VpcsPrefixFilterExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions2VpcsPrefixFilterExample(t, "prefix-tg")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func setupOptionsCrossaccountsExample(t *testing.T, prefix string) *testhelper.TestOptions {
+	const crossaccountsTerraformDir = "examples/crossaccounts"
+
+	// Load API keys from environment variables and map them to the variable names
+	// expected by the Terraform example (ibmcloud_api_key_account_a / _account_b).
+	ibmCloudApiKeyA, presentA := os.LookupEnv("TF_VAR_ibmcloud_api_key")
+	require.True(t, presentA, "TF_VAR_ibmcloud_api_key must be set")
+	ibmCloudApiKeyB, presentB := os.LookupEnv("TF_VAR_ibmcloud_api_key_ext")
+	require.True(t, presentB, "TF_VAR_ibmcloud_api_key_ext must be set")
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		Prefix:        prefix,
+		TerraformDir:  crossaccountsTerraformDir,
+		ResourceGroup: resourceGroup,
+	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ibmcloud_api_key_account_a": ibmCloudApiKeyA,
+		"ibmcloud_api_key_account_b": ibmCloudApiKeyB,
+		"transit_gateway_name":       fmt.Sprintf("%s-%s", options.Prefix, "crosstg"),
+		"region_account_a":           permanentResources["tg_crossaccount_vpc_region"],
+		"region_account_b":           permanentResources["tg_crossaccount_vpc_region"],
+		"prefix_account_a":           fmt.Sprintf("%s-%s", options.Prefix, "a"),
+		"existing_vpc_crn_account_b": permanentResources["tg_crossaccount_vpc_crn"],
+		"resource_group_account_a":   options.ResourceGroup,
+		"resource_group_account_b":   permanentResources["tg_crossaccount_rg"],
+	}
+
+	return options
+}
+
+func TestRunCrossaccountsExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsCrossaccountsExample(t, "cross")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")

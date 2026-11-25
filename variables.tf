@@ -42,13 +42,14 @@ variable "vpc_connections" {
   type = list(object({
     connection_name       = string
     vpc_crn               = string
-    default_prefix_filter = optional(string, "permit")
+    default_prefix_filter = optional(string)
   }))
   description = "The list of VPC instance connections with their associated default prefix filter and the connection name. Connection name allows to customise the single connection name. Customise the default filter setting for each VPC connections to `permit` or `deny` specific IP ranges. `permit` makes it to accept all prefixes after processing all the entries in the prefix filters list. `deny` makes it to deny all prefixes after processing all the entries in the prefix filters list. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
   validation {
     condition = alltrue([
-    for conn in var.vpc_connections : contains(["permit", "deny"], conn.default_prefix_filter)])
-    error_message = "Valid values to set default prefix filter is `permit` or `deny`. By default it is set to `permit`"
+      for conn in var.vpc_connections : conn.default_prefix_filter == null ? true : contains(["permit", "deny"], conn.default_prefix_filter)
+    ])
+    error_message = "Valid values to set default prefix filter is `permit` or `deny`."
   }
 }
 
@@ -61,17 +62,17 @@ variable "directlink_connections" {
   type = list(object({
     connection_name       = string
     directlink_crn        = string
-    default_prefix_filter = optional(string, "permit")
+    default_prefix_filter = optional(string)
   }))
   description = "The list of Direct Link connections with their associated default prefix filter and the connection name. Connection name allows to customise the single connection name. Customize the default filter setting for each Direct Link connection to `permit` or `deny` specific IP ranges. `permit` allows all prefixes after processing all prefix filters. `deny` blocks all prefixes after processing all prefix filters. By default it is set to `permit`. Refer to https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-adding-prefix-filters&interface=ui for more details."
   default     = []
 
   validation {
     condition = alltrue([
-      for conn in var.directlink_connections : contains(["permit", "deny"], conn.default_prefix_filter)
+      for conn in var.directlink_connections : conn.default_prefix_filter == null ? true : contains(["permit", "deny"], conn.default_prefix_filter)
     ])
 
-    error_message = "Valid values for default_prefix_filter are `permit` or `deny`. By default it is set to `permit`."
+    error_message = "Valid values for default_prefix_filter are `permit` or `deny`."
   }
 }
 

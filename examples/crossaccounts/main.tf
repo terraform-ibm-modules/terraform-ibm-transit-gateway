@@ -10,6 +10,9 @@ module "resource_group_account_a" {
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group_account_a == null ? "${var.prefix_account_a}-resource-group" : null
   existing_resource_group_name = var.resource_group_account_a
+  providers = {
+    ibm = ibm.accountA
+  }
 }
 
 
@@ -43,6 +46,9 @@ module "resource_group_account_b" {
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group_account_b == null ? "${var.prefix_account_b}-resource-group" : null
   existing_resource_group_name = var.resource_group_account_b
+  providers = {
+    ibm = ibm.accountB
+  }
 }
 
 
@@ -96,12 +102,14 @@ module "tg_gateway_connection" {
   existing_transit_gateway_name = ibm_tg_gateway.tg_gw_instance.name
   vpc_connections = [
     {
-      vpc_crn         = module.vpc_a.vpc_crn
-      connection_name = "conn_1"
+      vpc_crn               = module.vpc_a.vpc_crn
+      connection_name       = "conn_1"
+      default_prefix_filter = "permit"
     },
     {
-      vpc_crn         = local.vpc_b_crn
-      connection_name = "conn_2"
+      vpc_crn               = local.vpc_b_crn
+      connection_name       = "conn_2"
+      default_prefix_filter = null # Prefix filters cannot be set by account A on a cross-account connection request
     }
   ]
   classic_connections_count = 0
